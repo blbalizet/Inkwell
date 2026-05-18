@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit One: Arrivals — Yoshida School [TEACHER]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #13110e;
+      --bg-card:      #1c1813;
+      --bg-lift:      #231f18;
+      --bg-tartt:     #0e1a1c;
+      --bg-twain:     #1a1508;
+      --bg-toggle:    #1a1a2a;
+      --text:         #e8ddd0;
+      --text-muted:   #8a7d6e;
+      --text-dim:     #4e4840;
+      --gold:         #c8923a;
+      --gold-dim:     rgba(200,146,58,0.22);
+      --gold-faint:   rgba(200,146,58,0.07);
+      --teal:         #4a9a96;
+      --teacher-red:  #c0392b;
+      --student-green:#2d8a4e;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-lit:     'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Libre Franklin', system-ui, sans-serif;
+    }
+
+    /* ===================== TEACHER NOTE VISIBILITY ===================== */
+    /* TEACHER FILE: teacher notes are shown in red */
+    .teacher-note {
+      display: block;
+      color: var(--teacher-red);
+      background: rgba(192,57,43,0.07);
+      border-left: 3px solid var(--teacher-red);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 3px 3px 0;
+      font-style: italic;
+    }
+    .teacher-note p { color: var(--teacher-red); max-width: none; font-size: 0.88rem; }
+    .teacher-note strong { color: var(--teacher-red); }
+    .teacher-note::before {
+      content: 'TEACHER ';
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      font-style: normal;
+      opacity: 0.6;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Student prompts shown in green */
+    .student-prompt {
+      color: var(--student-green);
+    }
+    .student-prompt strong { color: var(--student-green); }
+
+    /* ===================== RESET ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(19,17,14,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gold-dim);
+      padding: 0.6rem 1.5rem;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem;
+    }
+    nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      padding: 0.3rem 0.5rem; border-radius: 2px;
+      transition: color 0.18s, background 0.18s;
+    }
+    nav a:hover { color: var(--gold); background: var(--gold-faint); }
+    .dot { color: var(--text-dim); font-size: 0.55rem; margin: 0 0.1rem; }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      min-height: 56vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 5rem 2rem 3.5rem;
+      max-width: 1160px; margin: 0 auto;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.14; filter: saturate(0.6);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .eyebrow {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 10vw, 7.5rem);
+      font-weight: 400; line-height: 1; margin-bottom: 0.9rem;
+    }
+    .hero-sub {
+      font-family: var(--font-lit);
+      font-size: 1.15rem; font-style: italic;
+      color: var(--text-muted); margin-bottom: 0.4rem;
+    }
+    .hero-tag {
+      font-size: 0.8rem; color: var(--text-dim); letter-spacing: 0.05em;
+    }
+
+    /* ===================== LAYOUT ===================== */
+    section {
+      padding: 4.5rem 2rem;
+      max-width: 1160px; margin: 0 auto;
+      border-top: 1px solid rgba(138,125,110,0.12);
+    }
+    section:first-of-type { border-top: none; }
+    .section-label {
+      font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.9rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      font-weight: 400; line-height: 1.12; margin-bottom: 1.5rem;
+    }
+    h3 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; margin-bottom: 0.75rem; }
+    h4 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; color: var(--text-muted); }
+    p { font-size: 0.95rem; font-weight: 300; line-height: 1.85; margin-bottom: 1rem; max-width: 66ch; }
+    p:last-child { margin-bottom: 0; }
+    p.wide { max-width: none; }
+    strong { font-weight: 500; }
+    em { font-style: italic; }
+    a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+    a:hover { border-color: var(--gold); }
+
+    /* ===================== PASSAGE COLUMNS ===================== */
+    .passage-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin: 2.5rem 0;
+    }
+    @media (max-width: 740px) { .passage-grid { grid-template-columns: 1fr; } }
+    .passage-col { padding: 2.5rem; }
+    .passage-col.tartt { background: var(--bg-tartt); border-left: 3px solid var(--teal); }
+    .passage-col.twain { background: var(--bg-twain); border-left: 3px solid var(--gold); }
+    .passage-source {
+      font-size: 0.66rem; font-weight: 600; letter-spacing: 0.13em;
+      text-transform: uppercase; margin-bottom: 1.5rem; display: block;
+    }
+    .tartt .passage-source { color: var(--teal); }
+    .twain .passage-source { color: var(--gold); }
+    blockquote {
+      font-family: var(--font-lit); font-size: 1.18rem;
+      font-style: italic; line-height: 1.95; border: none; padding: 0;
+    }
+    blockquote.vernacular { font-style: normal; font-size: 1.1rem; }
+    .passage-note {
+      margin-top: 1.5rem; padding-top: 1rem;
+      border-top: 1px solid rgba(138,125,110,0.18);
+      font-size: 0.8rem; color: var(--text-muted); font-style: italic; max-width: none;
+    }
+
+    /* ===================== ACTIVITY ===================== */
+    .activity {
+      background: var(--bg-lift); border-left: 3px solid var(--gold);
+      padding: 2.25rem 2.5rem; margin: 2rem 0; border-radius: 0 3px 3px 0;
+    }
+    .activity-label {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .activity h3 { margin-bottom: 1rem; font-size: 1.15rem; }
+    .activity ol, .activity ul { padding-left: 1.6rem; margin-bottom: 1rem; }
+    .activity li { font-size: 0.93rem; font-weight: 300; line-height: 1.8; margin-bottom: 0.5rem; }
+    .activity p { max-width: none; }
+
+    /* ===================== CALLOUT ===================== */
+    .callout {
+      background: var(--gold-faint); border: 1px solid var(--gold-dim);
+      padding: 1.25rem 1.75rem; margin: 1.5rem 0; border-radius: 2px;
+    }
+    .callout p { margin: 0; font-size: 0.88rem; max-width: none; }
+
+    /* ===================== TIMELINE ===================== */
+    .timeline { margin: 2rem 0; padding-left: 2.5rem; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0; top: 0.6rem; bottom: 0.6rem;
+      width: 1px; background: var(--gold-dim);
+    }
+    .timeline-item { position: relative; margin-bottom: 1.75rem; padding-left: 1rem; }
+    .timeline-item::before {
+      content: ''; position: absolute;
+      left: -2.5rem; top: 0.55rem;
+      width: 8px; height: 8px;
+      border-radius: 50%; background: var(--gold); border: 2px solid var(--bg);
+    }
+    .timeline-year {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      color: var(--gold); text-transform: uppercase;
+      display: block; margin-bottom: 0.25rem;
+    }
+    .timeline-text { font-size: 0.9rem; font-weight: 300; line-height: 1.75; margin: 0; max-width: 58ch; }
+
+    /* ===================== QUOTES ===================== */
+    .twain-quote {
+      background: var(--bg-twain); border-left: 3px solid var(--gold);
+      padding: 2rem 2.5rem; margin: 2rem 0;
+    }
+    .twain-quote blockquote { font-size: 1.08rem; margin-bottom: 1rem; }
+    .twain-quote cite {
+      font-family: var(--font-body); font-size: 0.75rem;
+      font-weight: 500; letter-spacing: 0.04em;
+      color: var(--gold); font-style: normal;
+    }
+
+    /* ===================== THE NOTICE ===================== */
+    .notice-display {
+      text-align: center;
+      border-top: 1px solid var(--gold-dim); border-bottom: 1px solid var(--gold-dim);
+      padding: 2.5rem 2rem; margin: 2.5rem 0;
+    }
+    .notice-display blockquote { font-size: 1.22rem; line-height: 2.1; max-width: none; }
+    .notice-attr {
+      display: block; margin-top: 1.25rem;
+      font-family: var(--font-body); font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-muted); font-style: normal;
+    }
+
+    /* ===================== TEXTAREA ===================== */
+    .answer-box {
+      width: 100%;
+      min-height: 120px;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-dim);
+      color: var(--text);
+      font-family: var(--font-lit);
+      font-size: 1rem;
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      border-radius: 2px;
+      resize: vertical;
+      line-height: 1.8;
+    }
+    .answer-box:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .answer-box::placeholder { color: var(--text-dim); font-style: italic; }
+    .answer-label {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--student-green); display: block; margin-top: 1.5rem;
+    }
+
+    /* ===================== PLATO POCKET ===================== */
+    .plato-pocket {
+      background: #16141e;
+      border: 1px solid rgba(138,125,110,0.2);
+      padding: 2.5rem;
+      margin: 2rem 0;
+      position: relative;
+    }
+    .plato-pocket::before {
+      content: 'POCKET';
+      position: absolute; top: 1rem; right: 1.5rem;
+      font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.2em; color: var(--text-dim);
+    }
+    .plato-source {
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); display: block; margin-bottom: 1rem;
+    }
+    .plato-pocket blockquote {
+      font-family: var(--font-lit);
+      font-size: 1.1rem; font-style: italic;
+      line-height: 2; margin-bottom: 0.75rem; color: var(--text);
+    }
+    .plato-pocket cite {
+      font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.04em; color: var(--text-dim); font-style: normal;
+    }
+
+    /* ===================== TOGGLE SECTIONS ===================== */
+    .toggle-btn {
+      display: inline-block;
+      margin: 1.5rem 0 0.5rem;
+      background: var(--bg-toggle);
+      border: 1px solid rgba(138,125,110,0.25);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 0.65rem 1.5rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+    .toggle-btn:hover {
+      background: var(--bg-lift);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .toggle-btn.open {
+      background: var(--gold-faint);
+      color: var(--gold);
+      border-color: var(--gold-dim);
+    }
+    .collapsible { display: none; }
+    .collapsible.open {
+      display: block;
+      animation: fadeIn 0.25s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .toggle-content {
+      background: var(--bg-card);
+      border: 1px solid rgba(138,125,110,0.15);
+      padding: 2.5rem;
+      margin-top: 1rem;
+      border-radius: 0 2px 2px 2px;
+    }
+    .toggle-content h4 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      font-weight: 400; margin-bottom: 1rem; color: var(--text);
+    }
+    .essay-text {
+      font-family: var(--font-lit);
+      font-size: 1.05rem; line-height: 2;
+      font-style: normal; color: var(--text);
+    }
+    .essay-text p { max-width: 70ch; margin-bottom: 1.25rem; font-family: var(--font-lit); font-size: 1.05rem; }
+    .essay-part {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); display: block;
+      margin: 2rem 0 1rem;
+    }
+
+    /* ===================== JIM CROW ORIGIN ===================== */
+    .jim-crow-origin {
+      background: #1a0e0e;
+      border-left: 3px solid #8b3a3a;
+      padding: 2rem 2.5rem;
+      margin: 2.5rem 0;
+    }
+    .jim-crow-origin h3 { color: var(--text); }
+
+    /* ===================== DIALECT TABLE ===================== */
+    .dialect-table { width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.88rem; }
+    .dialect-table th {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      padding: 0.7rem 1rem; border-bottom: 1px solid var(--gold-dim); text-align: left;
+    }
+    .dialect-table td {
+      padding: 0.9rem 1rem; border-bottom: 1px solid rgba(138,125,110,0.1);
+      font-weight: 300; vertical-align: top; line-height: 1.6;
+    }
+    .dialect-table tr:last-child td { border-bottom: none; }
+    .word-ex { font-family: var(--font-lit); font-size: 1.05rem; font-style: italic; }
+    .rhotic-c { color: #7abfb0; }
+    .nonrhotic-c { color: var(--gold); }
+
+    /* ===================== PRONUNCIATION GUIDE ===================== */
+    .pron-guide { background: var(--bg-card); border-radius: 2px; overflow: hidden; margin: 1.5rem 0; }
+    .pron-row {
+      display: grid; grid-template-columns: 1.2fr 1fr 1.8fr;
+      gap: 1rem; padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid rgba(138,125,110,0.1); align-items: start;
+    }
+    .pron-row:last-child { border-bottom: none; }
+    .pron-row.header { background: rgba(138,125,110,0.07); padding: 0.6rem 1.5rem; }
+    .pron-head { font-size: 0.63rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+    .pron-orig { font-family: var(--font-lit); font-style: italic; font-size: 1rem; line-height: 1.5; }
+    .pron-say { font-size: 0.85rem; font-weight: 500; color: var(--gold); line-height: 1.5; }
+    .pron-note { font-size: 0.8rem; font-weight: 300; color: var(--text-muted); line-height: 1.6; }
+    @media (max-width: 600px) { .pron-row { grid-template-columns: 1fr; gap: 0.3rem; } .pron-row.header { display: none; } }
+
+    /* ===================== VIDEO CARDS ===================== */
+    .video-block { margin-bottom: 3rem; }
+    .video-block-hdr { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .video-block-hdr h3 { margin: 0; font-size: 1.1rem; color: var(--text-muted); }
+    .full-link { font-size: 0.75rem; font-weight: 500; color: var(--gold); border-bottom: 1px solid var(--gold-dim); white-space: nowrap; }
+    .full-link:hover { border-color: var(--gold); }
+    .video-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1px; background: rgba(138,125,110,0.1); }
+    .video-card {
+      background: var(--bg-card); padding: 1.25rem 1.5rem;
+      text-decoration: none; color: var(--text); border: none; display: block;
+      transition: background 0.18s;
+    }
+    .video-card:hover { background: var(--bg-lift); border: none; }
+    .video-card.key { border-top: 2px solid var(--gold); }
+    .vc-time { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+    .vc-name { font-family: var(--font-display); font-size: 1.1rem; display: block; margin-bottom: 0.35rem; color: var(--text); }
+    .vc-note { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; line-height: 1.55; }
+
+    /* ===================== CHARACTER GRID ===================== */
+    .character-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1px; background: rgba(138,125,110,0.1); margin: 2rem 0; }
+    .character-card { background: var(--bg-card); padding: 1.5rem; }
+    .character-card.key { border-top: 2px solid var(--gold); }
+    .char-name { font-family: var(--font-display); font-size: 1.2rem; font-style: italic; margin-bottom: 0.2rem; }
+    .char-origin { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .char-voice { font-size: 0.83rem; font-weight: 300; color: var(--text-muted); line-height: 1.65; }
+
+    /* ===================== IMAGES ===================== */
+    figure { margin: 2rem 0; }
+    figure img { width: 100%; display: block; border-radius: 1px; }
+    figcaption { font-size: 0.75rem; color: var(--text-dim); font-weight: 300; font-style: italic; margin-top: 0.6rem; line-height: 1.6; }
+    .img-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+    .img-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+    @media (max-width: 700px) { .img-row, .img-row-3 { grid-template-columns: 1fr; } }
+    .img-broken {
+      min-height: 200px; background: var(--bg-card);
+      border: 1px dashed rgba(200,146,58,0.2);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 1.5rem;
+      font-size: 0.75rem; color: var(--text-dim);
+      font-style: italic; line-height: 1.6; border-radius: 1px;
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      max-width: 1160px; margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      border-top: 1px solid rgba(138,125,110,0.12);
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.25rem; }
+    .footer-text { font-family: var(--font-lit); font-style: italic; font-size: 0.95rem; color: var(--text-muted); }
+    .reading-list { list-style: none; padding: 0; }
+    .reading-list li { font-family: var(--font-lit); font-style: italic; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+
+    /* ===================== UTILITIES ===================== */
+    .mt1 { margin-top: 1rem; } .mt2 { margin-top: 2rem; } .mt3 { margin-top: 3rem; }
+    hr { border: none; border-top: 1px solid rgba(138,125,110,0.12); margin: 2rem 0; }
+    .gold-text { color: var(--gold); }
+    .muted { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#opening">Opening Lines</a><span class="dot">·</span>
+  <a href="#history">Historical Context</a><span class="dot">·</span>
+  <a href="#ellison">Ellison</a><span class="dot">·</span>
+  <a href="#plato">Plato Pocket</a><span class="dot">·</span>
+  <a href="#notice">The Notice</a><span class="dot">·</span>
+  <a href="#dialect">Dialect</a><span class="dot">·</span>
+  <a href="#rhotic">Rhotic / Non-Rhotic</a><span class="dot">·</span>
+  <a href="#singer">Erik Singer</a><span class="dot">·</span>
+  <a href="#hampden">Hampden's Voices</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Planet_Lost_in_the_Glare_of_Binary_Stars.jpg/960px-Planet_Lost_in_the_Glare_of_Binary_Stars.jpg" alt="Binary star system" />
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow">Yoshida School — Humanities Core Track &nbsp;·&nbsp; Unit One</div>
+    <h1>Arrivals</h1>
+    <p class="hero-sub">Adventures of Huckleberry Finn &nbsp;·&nbsp; The Secret History</p>
+    <p class="hero-tag">Two confessions. Two opening lines. One field between them.</p>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: TWO VOICES                                          -->
+<!-- ============================================================ -->
+<section id="opening">
+  <div class="section-label">Where We Begin</div>
+  <h2>Consider:</h2>
+  <p>Both of these narrators know how the story ends before they start telling it.</p>
+  <p>Read both passages silently first. Then we'll read them aloud.</p>
+
+  <div class="passage-grid">
+    <div class="passage-col tartt">
+      <span class="passage-source">The Secret History — Donna Tartt, 1992 — Prologue</span>
+      <blockquote>
+        The snow in the mountains was melting and Bunny had been dead for several weeks before we came to understand the gravity of our situation. He'd been dead for ten days before they found him, you know. It was one of the biggest manhunts in Vermont history — state troopers, the FBI, even an army helicopter; the college closed, the dye factory in Hampden shut down, people coming from New Hampshire, upstate New York, as far away as Boston.
+      </blockquote>
+      <p class="passage-note">He tells you about a death before he tells you anything else — and then immediately mentions Boston. We'll come back to Boston.</p>
+    </div>
+    <div class="passage-col twain">
+      <span class="passage-source">Adventures of Huckleberry Finn — Mark Twain, 1884</span>
+      <blockquote class="vernacular">
+        You don't know about me without you have read a book by the name of <em>The Adventures of Tom Sawyer</em>; but that ain't no matter. That book was made by Mr. Mark Twain, and he told the truth, mainly. There are things which he stretched, but mainly he told the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly, or the widow, or maybe Mary. Aunt Polly — Tom's Aunt Polly, she is — and Mary, and the Widow Douglas is all told about in that book, which is mostly a true book, with some stretchers, as I said before.
+      </blockquote>
+      <p class="passage-note">Huck's first act is to vouch for his author's honesty — and immediately qualify it. "He told the truth, mainly." Who is in charge of this story?</p>
+    </div>
+  </div>
+
+  <div class="activity">
+    <div class="activity-label student-prompt">Do This Now</div>
+    <h3 class="student-prompt">Read These Aloud — Twice</h3>
+    <ol>
+      <li><strong>First reading: flat.</strong> Neutral pace, no performance. Notice how each voice feels in your mouth. They are doing completely different things with the English language.</li>
+      <li><strong>Second reading: find the rhythm.</strong> Tartt's sentence is long and suspended — it earns its length, it holds something in tension. Twain's first sentence has a pause built in: <em>"but that ain't no matter."</em> Let that pause happen. It's doing work.</li>
+      <li><strong>Then consider:</strong> Both narrators know how the story ends before they begin. What does that do to everything that follows?</li>
+    </ol>
+    <div class="callout">
+      <p><strong>The production effect:</strong> Words spoken aloud are retained significantly better than words read silently. Your brain encodes the passage twice — through the eyes and through the ears. This is not theater class. This is how memory works. This is why we do this.</p>
+    </div>
+  </div>
+
+  <!-- Twain performance ad -->
+  <figure>
+    <img src="https://cdn.forumcomm.com/dims4/default/d1e1c54/2147483647/strip/true/crop/300x200+0+43/resize/1680x1120!/format/webp/quality/90/?url=https%3A%2F%2Ffcc-cue-exports-brightspot.s3.us-west-2.amazonaws.com%2Fdglobe%2Fbinary%2Fcopy%2F8f%2Ff7%2Fd60cbabe45e7b4087078a10c029e%2F236305-twain-binary-2015436.jpg" alt="Advertisement for a Mark Twain speaking engagement, Duluth, 1895. Tickets 50 cents to one dollar." />
+    <figcaption>Advertisement for a Mark Twain lecture, Duluth, July 22, 1895. Tickets: 50 cents to one dollar. He toured three continents reading his work aloud to paying audiences. He wrote by ear.</figcaption>
+  </figure>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: HISTORICAL CONTEXT                                  -->
+<!-- ============================================================ -->
+<section id="history">
+  <div class="section-label">What World Was Twain Writing In?</div>
+  <h2>Not the World of Slavery.<br>The World of Jim Crow.</h2>
+
+  <p>The novel is set in Missouri in approximately the 1840s. But it was written and published in the 1880s — and the gap between those two moments matters enormously. Twain was not writing a nostalgic adventure story. He was writing into a specific political crisis.</p>
+
+  <!-- Twain portrait -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Harvard_Theatre_Collection_-_Samuel_Clemens_TCS_1.5265.jpg/960px-Harvard_Theatre_Collection_-_Samuel_Clemens_TCS_1.5265.jpg" alt="Mark Twain (Samuel Clemens) in his white suit, late photograph" />
+    <figcaption>Samuel Clemens, writing as Mark Twain. Born 1835 in Florida, Missouri; grew up in Hannibal on the Mississippi. The white suit became his public uniform late in life — deliberate, theatrical, impossible to ignore.</figcaption>
+  </figure>
+
+  <!-- JIM CROW ORIGIN -->
+  <div class="jim-crow-origin">
+    <h3>Where the Name Comes From</h3>
+    <p>The term "Jim Crow" — the name given to the entire system of racial segregation — did not come from law or politics. It came from a stage performance.</p>
+    <p>In the early 1830s, a white entertainer named Thomas Dartmouth "Daddy" Rice created a character called "Jump Jim Crow." He performed in blackface, doing an exaggerated dance he claimed to have based on a Black man — possibly enslaved, possibly disabled — he had observed. The song became one of the first American entertainment phenomena, spawning an entire tradition of minstrelsy that would define American popular culture for decades.</p>
+    <p>The legal apparatus of racial subjugation — the segregation laws that spread across the South from the 1870s onward — took its name from this theatrical act of dehumanization. The system that kept Black Americans in separate schools, separate cars, separate water fountains was called, and called itself, after a minstrel caricature designed to make white audiences laugh.</p>
+    <p>This is the name of the world Twain was publishing into.</p>
+  </div>
+
+  <div class="img-row">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Jim_Crow_LCCN2004669584.jpg/960px-Jim_Crow_LCCN2004669584.jpg" alt="Jim Crow minstrel print, between 1835 and 1845 — African American man caricatured in dance" />
+      <figcaption><em>Jim Crow</em>, etching, between 1835 and 1845. This minstrel caricature — a Black man in tattered clothes, dancing for the amusement of white audiences — gave its name to seventy years of racial segregation law. Library of Congress.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Negro_drinking_at_%22Colored%22_water_cooler_in_streetcar_terminal%2C_Oklahoma_City%2C_Oklahoma_by_Russell_Lee.jpg/960px-Negro_drinking_at_%22Colored%22_water_cooler_in_streetcar_terminal%2C_Oklahoma_City%2C_Oklahoma_by_Russell_Lee.jpg" alt="Person of color drinking at a 'Colored' water cooler, Oklahoma City, Oklahoma, photograph by Russell Lee" />
+      <figcaption>Oklahoma City, Oklahoma. Photograph by Russell Lee. The segregated drinking fountain — in Oklahoma, which until 1907 was Indian Territory, the land Huck imagines escaping to.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    <div class="timeline-item">
+      <span class="timeline-year">~1840s — The novel's setting</span>
+      <p class="timeline-text">Missouri before the Civil War. Slavery is legal; Jim is property under the law; the Territory west of the Mississippi is being "opened" through the forced removal of Indigenous nations. This is the world Huck Finn inhabits.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">1865 — Civil War ends</span>
+      <p class="timeline-text">The Thirteenth Amendment abolishes slavery. Reconstruction begins — a period of federal enforcement of Black civil rights, during which Black men serve in Congress and state legislatures.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">1877 — Reconstruction ends</span>
+      <p class="timeline-text">The Hayes-Tilden Compromise. Federal troops are withdrawn from the South. Reconstruction collapses. The white Southern political order reasserts control. Those who celebrated this called it "Redemption."</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">1883 — One year before Huck Finn</span>
+      <p class="timeline-text">The Supreme Court guts the Civil Rights Act of 1875, ruling the federal government cannot prohibit racial discrimination by private individuals and businesses. The door to Jim Crow opens. Twain is finishing his manuscript.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">1884/85 — Huck Finn published</span>
+      <p class="timeline-text">The novel arrives into this moment. Jim Crow laws are spreading. Lynching is epidemic. Reconstruction has been abandoned. Twain has set his story forty years earlier — but he and his readers are living here, in this, now.</p>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-year">1901 — Twain writes "The United States of Lyncherdom"</span>
+      <p class="timeline-text">Responding to a wave of lynchings in Missouri, Twain writes a furious essay. He catalogues the numbers, diagnoses the cause as moral cowardice, and implicates every silent American writer in the failure. He does not publish it in his lifetime.</p>
+    </div>
+  </div>
+
+  <!-- Douglass pair -->
+  <div class="img-row">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Frederick_Douglass_as_a_younger_man.jpg/1280px-Frederick_Douglass_as_a_younger_man.jpg" alt="Frederick Douglass as a young man" />
+      <figcaption>Frederick Douglass, c. 1847. Born enslaved in Maryland, he escaped north and became the most powerful abolitionist voice in America.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Frederick_Douglass_%28circa_1879%29.jpg/960px-Frederick_Douglass_%28circa_1879%29.jpg" alt="Frederick Douglass, circa 1879, formal portrait" />
+      <figcaption>Frederick Douglass, c. 1879 — the same decade Twain was writing Huck Finn. Douglass became the most photographed American of the 19th century, deliberately, as a counter to minstrel caricature.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Nast cartoon -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Worse_than_Slavery_%281874%29%2C_by_Thomas_Nast.jpg/960px-Worse_than_Slavery_%281874%29%2C_by_Thomas_Nast.jpg" alt="Thomas Nast, 'Worse Than Slavery,' Harper's Weekly, 1874" />
+    <figcaption>Thomas Nast, <em>"Worse Than Slavery,"</em> <em>Harper's Weekly</em>, October 24, 1874. Nast documented the systematic terror used to destroy Black political power after Reconstruction. Published ten years before Huck Finn.</figcaption>
+  </figure>
+
+  <h3 class="mt2">Twain's Own Moral Evolution</h3>
+  <p>Twain grew up in Hannibal, Missouri, in a slaveholding community. He later wrote that as a child he had accepted slavery without question — not out of cruelty, but because everyone around him did, and no one's conscience troubled them about it. He came to understand this as a profound moral failure — not just his own, but the failure of an entire community to register that something monstrous was happening.</p>
+
+  <div class="twain-quote">
+    <blockquote>
+      "In my schoolboy days I had no aversion to slavery. I was not aware that there was anything wrong about it. No one arraigned it in my hearing; the local papers said nothing against it; the local pulpit taught us that God approved of it, most of the few books we had dealt with it, and it was just the natural thing."
+    </blockquote>
+    <cite>— Mark Twain, Autobiography (written c. 1906–07, published posthumously)</cite>
+  </div>
+
+  <p>This is the moral context for Huck's entire journey. <em>Huck is that child.</em> He has absorbed everything his community taught him about Jim's place in the world — and the novel is the story of those teachings coming apart, one encounter at a time.</p>
+
+  <p>Late in his life, Twain paid the tuition of a Black student named Warner McGuinn to study law at Yale. He wrote to the dean framing this as personal reparation — a debt owed by white Southerners for what had been done. McGuinn became a significant civil rights attorney in Baltimore, and one of the teachers of Thurgood Marshall, who later argued <em>Brown v. Board of Education</em>.</p>
+
+  <div class="teacher-note">
+    <p>We'll talk about Thurgood Marshall next time. The chain from Twain → McGuinn → Marshall → Brown v. Board is a real and beautiful thread — but don't go down it today. Plant it and move on. "There's a name at the end of that chain we'll come back to."</p>
+  </div>
+
+  <!-- Hannibal -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Hannibal%2C_Missouri_%28NYPL_Hades-119459-54090%29.tif/lossy-page1-1920px-Hannibal%2C_Missouri_%28NYPL_Hades-119459-54090%29.tif.jpg" alt="Hannibal, Missouri — the town where Mark Twain grew up" />
+    <figcaption>Hannibal, Missouri — the town Twain grew up in, the model for St. Petersburg in the novel. On the Mississippi River. Limestone bedrock underneath: a secretly hollow landscape, riddled with caves.</figcaption>
+  </figure>
+
+  <!-- LYNCHERDOM TOGGLE -->
+  <h3 class="mt2">The United States of Lyncherdom</h3>
+  <p>Twain wrote this essay in 1901 and did not publish it in his lifetime. It is short, it is free online, and it is one of the angriest things he ever wrote. It belongs in your pocket alongside Huck Finn.</p>
+
+  <button class="toggle-btn" data-toggle="lyncherdom" data-open="Read This Tonight: The United States of Lyncherdom (Twain, 1901)" data-close="Close Essay" onclick="toggleSection('lyncherdom')">
+    Read This Tonight: The United States of Lyncherdom (Twain, 1901)
+  </button>
+
+  <div class="collapsible" id="lyncherdom">
+    <div class="toggle-content">
+      <h4>The United States of Lyncherdom — Mark Twain, 1901</h4>
+      <p style="font-size:0.78rem;color:var(--text-muted);max-width:none;margin-bottom:1.5rem;">Public domain. Written 1901. Published posthumously in <em>Europe and Elsewhere</em> (1923).</p>
+      <div class="essay-text">
+        <span class="essay-part">I</span>
+        <p>And so Missouri has fallen, that great state! Certain of her children have joined the lynchers, and the smirch is upon the rest of us. That handful of her children have given us a character and labeled us with a name, and to the dwellers in the four quarters of the earth we are "lynchers," now, and ever shall be. For the world will not stop and think — it never does, it is not its way; its way is to generalize from a single sample. It will not say, "Those Missourians have been busy eighty years in building an honorable good name for themselves; these hundred lynchers down in the corner of the state are not real Missourians, they are renegades." No, that truth will not enter its mind; it will generalize from the one or two misleading samples and say, "The Missourians are lynchers."</p>
+
+        <span class="essay-part">II</span>
+        <p>Oh, Missouri!</p>
+        <p>The tragedy occurred near Pierce City, down in the southwestern corner of the state. On a Sunday afternoon a young white woman who had started alone from church was found murdered. For there are churches there; in my time religion was more general, more pervasive, in the South than it was in the North, and more virile and earnest, too, I think; I have some reason to believe that this is still the case. The young woman was found murdered. Although it was a region of churches and schools the people rose, lynched three negroes — two of them very aged ones — burned out five negro households, and drove thirty negro families into the woods.</p>
+        <p>I do not dwell upon the provocation which moved the people to these crimes, for that has nothing to do with the matter; the only question is, does the assassin take the law into his own hands? It is very simple, and very just. If the assassin be proved to have usurped the law's prerogative in righting his wrongs, that ends the matter; a thousand provocations are no defense.</p>
+        <p>Why has lynching, with various barbaric accompaniments, become a favorite regulator in cases of "the usual crime" in several parts of the country? Is it because men think a lurid and terrible punishment a more forcible object lesson and a more effective deterrent than a sober and colorless hanging done privately in a jail would be? Surely sane men do not think that. Even the average child should know better. It should know that any strange and much-talked-of event is always followed by imitations, the world being so well supplied with excitable people who only need a little stirring up to make them lose what is left of their heads and do things which they would not have thought of ordinarily.</p>
+        <p>Lynching has reached Colorado, it has reached California, it has reached Indiana — and now Missouri! I may live to see a negro burned in Union Square, New York, with fifty thousand people present, and not a sheriff visible, not a governor, not a constable, not a colonel, not a clergyman, not a law-and-order representative of any sort.</p>
+        <p><em>Increase in Lynching. — In 1900 there were eight more cases than in 1899, and probably this year there will be more than there were last year. The year is little more than half gone, and yet there are eighty-eight cases as compared with one hundred and fifteen for all of last year. The four Southern states, Alabama, Georgia, Louisiana and Mississippi are the worst offenders.</em> — Chicago Tribune.</p>
+        <p>It must be that the increase comes of the inborn human instinct to imitate — that and man's commonest weakness, his aversion to being unpleasantly conspicuous, pointed at, shunned, as being on the unpopular side. Its other name is <strong>Moral Cowardice</strong>, and is the commanding feature of the make-up of 9,999 men in the 10,000. I am not offering this as a discovery; privately the dullest of us knows it to be true.</p>
+        <p>It has been supposed — and said — that the people at a lynching enjoy the spectacle and are glad of a chance to see it. It cannot be true; all experience is against it. The people in the South are made like the people in the North — the vast majority of whom are right-hearted and compassionate, and would be cruelly pained by such a spectacle — and would attend it, and let on to be pleased with it, if the public approval seemed to require it. We are made like that, and we cannot help it.</p>
+        <p>The Moral Sense teaches us what is right, and how to avoid it — when unpopular.</p>
+        <p>A Savonarola can quell and scatter a mob of lynchers with a mere glance of his eye: so can a Merrill or a Beloat. For no mob has any sand in the presence of a man known to be splendidly brave. Besides, a lynching mob would like to be scattered, for of a certainty there are never ten men in it who would not prefer to be somewhere else — and would be, if they but had the courage to go. When I was a boy I saw a brave gentleman deride and insult a mob and drive it away; and afterward, in Nevada, I saw a noted desperado make two hundred men sit still, with the house burning under them, until he gave them permission to retire.</p>
+        <p>Then perhaps the remedy for lynchings comes to this: station a brave man in each affected community to encourage, support, and bring to light the deep disapproval of lynching hidden in the secret places of its heart — for it is there, beyond question. Then those communities will find something better to imitate — of course, being human, they must imitate something. Where shall these brave men be found? That is indeed a difficulty; there are not three hundred of them in the earth.</p>
+        <p>No, upon reflection, the scheme will not work. There are not enough morally brave men in stock. We are out of moral-courage material; we are in a condition of profound poverty.</p>
+        <p>But if we only could have three or four more sheriffs of that great breed! Would it help? I think so. For we are all imitators: other brave sheriffs would follow; to be a dauntless sheriff would come to be recognized as the correct and only the dreaded disapproval would fall to the share of the other kind; courage in this office would become custom, the absence of it a dishonor, just as courage presently replaces the timidity of the new soldier; then the mobs and the lynchings would disappear, and —</p>
+        <p>However. It can never be done without some starters, and where are we to get the starters?</p>
+        <p>In the meantime, there is another plan. Let us import American missionaries from China, and send them into the lynching field. The Chinese are universally conceded to be excellent people, honest, honorable, industrious, trustworthy, kind-hearted, and all that — leave them alone, they are plenty good enough just as they are; and besides, almost every convert runs a risk of catching our civilization. We ought to be careful.</p>
+        <p>Let them look at the following telegram and see if they have anything in China that is more appetizing. It is from Texas:</p>
+        <blockquote style="font-style:italic;border-left:2px solid rgba(200,146,58,0.3);padding-left:1.5rem;margin:1rem 0;font-size:0.95rem;">The negro was taken to a tree and swung in the air. Wood and fodder were piled beneath his body and a hot fire was made. Then it was suggested that the man ought not to die too quickly, and he was let down to the ground while a party went to Dexter, about two miles distant, to procure coal oil. This was thrown on the flame and the work completed.</blockquote>
+        <p>We ask them to read that telegram again, and yet again, and picture the scene in their minds, and soberly ponder it; then multiply it by 115, add 88; place the 203 in a row, allowing 600 feet of space for each human torch, so that there be viewing room around it for 5,000 Christian American men, women, and children, youths and maidens; make it night for grim effect; have the show in a gradually rising plain, and let the course of the stakes be uphill; the eye can then take in the whole line of twenty-four miles of blood-and-flesh bonfires unbroken, whereas if it occupied level ground the ends of the line would bend down and be hidden from view by the curvature of the earth. All being ready, now, and the darkness opaque, the stillness impressive — for there should be no sound but the soft moaning of the night wind and the muffled sobbing of the sacrifices — let all the far stretch of kerosened pyres be touched off simultaneously and the glare and the shrieks and the agonies burst heavenward to the Throne.</p>
+        <p>There are more than a million persons present; the light from the fires flushes into vague outline against the night the spires of five thousand churches. <strong>O kind missionary, O compassionate missionary, leave China! come home and convert these Christians!</strong></p>
+        <p>I believe that if anything can stop this epidemic of bloody insanities it is martial personalities that can face mobs without flinching; and as such personalities are developed only by familiarity with danger and by the training and seasoning which come of resisting it, the likeliest place to find them must be among the missionaries who have been under tuition in China during the past year or two. We have abundance of work for them, and for hundreds and thousands more, and the field is daily growing and spreading. Shall we find them? We can try. In 75,000,000 there must be other Merrills and Beloats; and it is the law of our make that each example shall wake up drowsing chevaliers of the same great knighthood and bring them to the front.</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: ELLISON                                              -->
+<!-- ============================================================ -->
+<section id="ellison">
+  <div class="section-label">Read for Next Session</div>
+  <h2>A Party Down by the Square</h2>
+  <p>Ralph Ellison wrote this story in the early 1940s. It was published posthumously. It describes a lynching from the point of view of a white boy who attends one as a child.</p>
+  <p>Read the Twain essay and then read this, back to back. Twain describes the psychology of the crowd from outside. Ellison puts you inside a child's body, watching.</p>
+  <p>Notice: the boy is also a narrator who knows more than he admits. He is also, in his way, confessing.</p>
+
+  <button class="toggle-btn" data-toggle="ellison-text" data-open="Read This Tonight: A Party Down by the Square (Ellison)" data-close="Close Story" onclick="toggleSection('ellison-text')">
+    Read This Tonight: A Party Down by the Square — Ralph Ellison
+  </button>
+
+  <div class="collapsible" id="ellison-text">
+    <div class="toggle-content">
+      <h4>A Party Down by the Square — Ralph Ellison</h4>
+      <p style="font-size:0.78rem;color:var(--text-muted);max-width:none;margin-bottom:1.5rem;">From <em>Flying Home and Other Stories</em> (1996). For private educational use.</p>
+      <div class="essay-text">
+        <p>I DON'T KNOW WHAT STARTED IT. A BUNCH OF men came by my Uncle Ed's place and said there was going to be a party down at the Square, and my uncle hollered for me to come on and I ran with them through the dark and rain and there we were at the Square. When we got there everybody was mad and quiet and standing around looking at the nigger. Some of the men had guns, and one man kept goosing the nigger in his pants with the barrel of a shotgun saying he ought to pull the trigger, but he never did. It was right in front of the court house, and the old clock in the tower was striking twelve. The rain was falling cold and freezing as it fell. Everybody was cold, and the nigger kept wrapping his arms around himself trying to stop the shivers. Then one of the boys pushed through the circle and snatched off the nigger's shirt, and there he stood, with his black skin all shivering in the light from the fire, and looking at us with a scared look on his face and putting his hands in his pants pockets. Folks started yelling to hurry up and kill the nigger. Somebody yelled: "Take your hands out of your pockets, nigger; we gonna have plenty heat in a minnit." But the nigger didn't hear him and kept his hands where they were. I tell you the rain was cold. I had to stick my hands in my pockets they got so cold. The fire was pretty small, and they put some logs around the platform they had the nigger on and then threw on some gasoline, and you could see the flames light up the whole Square. It was late and the streetlights had been off for a long time. It was so bright that the bronze statue of the general standing there in the Square was like something alive. The shadows playing on his moldy green face made him seem to be smiling down at the nigger. They threw on more gas, and it made the Square bright like it gets when the lights are turned on or when the sun is setting red. All the wagons and cars were standing around the curbs. Not like Saturday though — the niggers weren't there. Not a single nigger was there except this Bacote nigger and they dragged him there tied to the back of Jed Wilson's truck. On Saturday there's as many niggers as white folks. Everybody was yelling crazy 'cause they were about to set fire to the nigger, and I got to the rear of the circle and looked around the Square to try to count the cars. The shadows of the folks was flickering on the trees in the middle of the Square. I saw some birds that the noise had woke up flying through the trees. I guess maybe they thought it was morning. The ice had started the cobblestones in the street to shine where the rain was falling and freezing. I counted forty cars before I lost count. I knew folks must have been there from Phenix City by all the cars mixed in with the wagons. God, it was a hell of a night. It was some night all right.</p>
+
+        <p>When the noise died down I heard the nigger's voice from where I stood in the back, so I pushed my way up front. The nigger was bleeding from his nose and ears, and I could see him all red where the dark blood was running down his black skin. He kept lifting first one foot and then the other like a chicken on a hot stove. I looked down to the platform they had him on, and they had pushed a ring of fire up close to his feet. It must have been hot to him with the flames almost touching his big black toes. Somebody yelled for the nigger to say his prayers, but the nigger wasn't saying anything now. He just kinda moaned with his eyes shut and kept moving up and down on his feet, first one foot and then the other. I watched the flames burning the logs up closer and closer to the nigger's feet. They were burning good now, and the rain had stopped and the wind was rising, making the flames flare higher. I looked, and there must have been thirty-five women in the crowd, and I could hear their voices clear and shrill mixed in with those of the men.</p>
+
+        <p>Then it happened. I heard the noise about the same time everyone else did. It was like the roar of a cyclone blowing up from the gulf, and everyone was looking up into the air to see what it was. Some of the faces looked surprised and scared, all but the nigger. He didn't even hear the noise. He didn't even look up. Then the roar came closer, right about our heads and the wind was blowing higher and higher and the sound seemed to be going in circles. Then I saw her. Through the clouds and fog I could see a red and green light on her wings. I could see them just for a second; then she rose up into the low clouds. I looked out for the beacon over the tops of the buildings in the direction of the airfield that's forty miles away, and it wasn't circling around. You usually could see it sweeping around the sky at night, but it wasn't there. Then, there she was again, like a big bird lost in the fog. I looked for the red and green lights, and they weren't there anymore. She was flying even closer to the tops of the buildings than before. The wind was blowing harder, and leaves started flying about, making funny shadows on the ground, and tree limbs were cracking and falling. It was a storm all right. The pilot must have thought he was over the landing field. Maybe he thought the fire in the Square was put there for him to land by. Gosh, but it scared the folks. I was scared too. They started yelling: "He's going to land. He's going to land." And: "He's going to fall."</p>
+
+        <p>A few started for their cars and wagons. I could hear the wagons creaking and chains jangling and cars spitting and missing as they started the engines up. Off to my right, a horse started pitching and striking his hooves against a car. I didn't know what to do. I wanted to run, and I wanted to stay and see what was going to happen. The plane was close as hell. The pilot must have been trying to see where he was at, and her motors were drowning out all the sounds. I could even feel the vibration, and my hair felt like it was standing up under my hat. I happened to look over at the statue of the general standing with one leg before the other and leaning back on a sword, and I was fixing to run over and climb between his legs and sit there and watch when the roar stopped some, and I looked up and she was gliding just over the top of the trees in the middle of the Square. Her motors stopped altogether and I could hear the sound of branches cracking and snapping off below her landing gear. I could see her plain now, all silver and shining in the light of the fire with T. W. A. in black letters under her wings. She was sailing smoothly out of the Square when she hit the high power lines that follow the Birmingham highway through the town. It made a loud crash. It sounded like the wind blowing the door of a tin barn shut. She only hit with her landing gear, but I could see the sparks flying, and the wires knocked loose from the poles were spitting blue sparks and whipping around like a bunch of snakes and leaving circles of blue sparks in the darkness.</p>
+
+        <p>The plane had knocked five or six wires loose, and they were dangling and swinging, and every time they touched they threw off more sparks. The wind was making them swing, and when I got over there, there was a crackling and spitting screen of blue haze across the highway. I lost my hat running over, but I didn't stop to look for it. I was among the first and I could hear the others pounding behind me across the grass of the Square. They were yelling to beat all hell, and they came up fast, pushing and shoving, and someone got pushed against a swinging wire. It made a sound like when a blacksmith drops a red hot horseshoe into a barrel of water, and the steam comes up. I could smell the flesh burning. The first time I'd ever smelled it. I got up close and it was a woman. It must have killed her right off. She was lying stiff as a board in a puddle, with pieces of glass insulators that the plane had knocked off the poles lying all around her. The shock had turned the woman almost as black as the nigger. I was trying to see if she wasn't blue too, or if it was just the sparks, and the sheriff drove me away.</p>
+
+        <p>As I backed off trying to see, I heard the motors of the plane start up again somewhere off to the right in the clouds. The clouds were moving fast in the wind and the wind was blowing the smell of something burning over to me. I turned around, and the crowd was headed back to the nigger. I could see him standing there in the middle of the flames. The wind was making the flames brighter every minute. The crowd was running. I ran too. I ran back across the grass with the crowd. I tripped and fell over the limb of a tree lying in the grass and bit my lip. It ain't well yet I bit it so bad. I could taste the blood in my mouth as I ran over. I guess that's what made me sick. When I got there, the fire had caught the nigger's pants, and the folks were standing around watching, but not too close on account of the wind blowing the flames. Somebody hollered: "Well, nigger, it ain't so cold now, is it? You don't need to put your hands in your pockets now." And the nigger looked up with his great white eyes looking like they was 'bout to pop out of his head, and I had enough. I didn't want to see anymore. I wanted to run somewhere and puke, but I stayed. <strong>I stayed right there in the front of the crowd and looked.</strong></p>
+
+        <p>The nigger tried to say something I couldn't hear for the roar of the wind in the fire, and I strained my ears. Jed Wilson hollered, "What you say there, nigger?" And it came back through the flames in his nigger voice: "Will one a you gentlemen please cut my throat?" he said. "Will somebody please cut my throat like a Christian?" And Jed hollered back, "Sorry, but ain't no Christians around tonight. Ain't no Jewboys neither. We're just one hundred percent Americans." Then the nigger was silent. Folks started laughing at Jed. Jed's right popular with the folks, and next year, my uncle says, they plan to run him for sheriff.</p>
+
+        <p>The heat was too much for me, and the smoke was making my eyes to smart. I was trying to back away when Jed reached down and brought up a can of gasoline and threw it in the fire on the nigger. I could see the flames catching the gas in a puff as it went in in a silver sheet and some of it reached the nigger making spurts of blue fire all over his chest. Well, that nigger was tough. I have to give it to that nigger; he was really tough. He had started to burn like a house afire and was making the smoke smell like burning hides. The fire was up around his head, and the smoke was so thick and black we couldn't see him. And him not moving — we thought he was dead. Then he started out. The fire had burned the ropes they had tied him with, and he started jumping and kicking about like he was blind, and you could smell his skin burning. He kicked so hard that the platform, which was burning too, fell in, and he rolled out of the fire at my feet. I jumped back so he wouldn't get on me. I'll never forget it. Every time I eat barbeque I'll remember that nigger. His back was just like a barbecued hog. I could see the prints of his ribs where they start around from his backbone and curve down and around. It was a sight to see, that nigger's back. He was right at my feet, and somebody behind pushed me and almost made me step on him, and he was still burning. I didn't step on him though, and Jed and somebody else pushed him back into the burning planks and logs and poured on more gas. I wanted to leave, but the folks were yelling and I couldn't move except to look around and see the statue. A branch the wind had broken was resting on his hat. I tried to push out and get away because my guts were gone, and all I got was spit and hot breath in my face from the woman and two men standing directly behind me. So I had to turn back around. The nigger rolled out of the fire again. He wouldn't stay put. It was on the other side this time. I couldn't see him very well through the flames and smoke. They got some tree limbs and held him there this time and he stayed there till he was ashes.</p>
+
+        <p>I pushed my way through the crowd, and a woman in the rear scratched my face as she yelled and fought to get up close. I ran across the Square to the other side, where the sheriff and his deputies were guarding the wires that were still spitting and making a blue fog. My heart was pounding like I had been running a long ways, and I bent over and let my insides go. Everything came up and spilled in a big gush over the ground. I was sick, and tired, and weak, and cold. The wind was still high, and large drops of rain were beginning to fall. I headed down the street to my uncle's place past a store where the wind had broken a window, and glass lay over the sidewalk. I kicked it as I went by. I remember somebody's fool rooster crowing like it was morning in all that wind.</p>
+
+        <p>The next day I was too weak to go out, and my uncle kidded me and called me "The gutless wonder from Cincinnati." I didn't mind. He said you get used to it in time. He couldn't go out hisself. There was too much wind and rain. I got up and looked out of the window, and the rain was pouring down and dead sparrows and limbs of trees were scattered all over the yard. There had been a cyclone all right. It swept a path right through the county, and we were lucky we didn't get the full force of it.</p>
+
+        <p>They had to kill another nigger who tried to run out of the county after they burned this Bacote nigger. My Uncle Ed said they always have to kill niggers in pairs to keep the other niggers in place. I don't know though, the folks seem a little skittish of the niggers. They all came back, but they act pretty sullen. They look mean as hell when you pass them down at the store. The other day I was down to Brinkley's store, and a white cropper said it didn't do no good to kill the niggers 'cause things don't get no better. He looked hungry as hell. Most of the croppers look hungry. You'd be surprised how hungry white folks can look. Somebody said that he'd better shut his damn mouth, and he shut up. But from the look on his face he won't stay shut long. He went out of the store muttering to himself and spit a big chew of tobacco right down on Brinkley's floor. Brinkley said he was sore 'cause he wouldn't let him have credit.</p>
+
+        <p>Anyway, it didn't seem to help things. First it was the nigger and the storm, then the plane, then the woman and the wires, and now I hear the airplane line is investigating to find who set the fire that almost wrecked their plane. All that in one night, and all of it but the storm over one nigger. It was some night all right. It was some party too. <strong>I was right there, see. I was right there watching it all. It was my first party and my last. God, but that nigger was tough. That Bacote nigger was some nigger!</strong></p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: PLATO POCKET                                         -->
+<!-- ============================================================ -->
+<section id="plato">
+  <div class="section-label">Put This In Your Pocket</div>
+  <h2>Two Sentences From Plato</h2>
+
+  <p>Plato wrote <em>The Republic</em> around 380 BCE. We're going to read it properly later in the curriculum. But there are two passages we should have in our pocket right now, today, after reading what we just read.</p>
+  <p>We'll read them aloud. We won't analyze them. We'll put them away and keep going. They'll be there when we need them.</p>
+
+  <div class="plato-pocket">
+    <span class="plato-source">The Republic, Book VIII — Plato (trans. Jowett, public domain)</span>
+    <blockquote>
+      "The people have always some champion whom they set over them and nurse into greatness... This and no other is the root from which a tyrant springs; when he first appears above ground he is a protector... he is always stirring up some war or other, in order that the people may require a leader."
+    </blockquote>
+    <cite>— Plato, <em>The Republic</em>, Book VIII, ~565c</cite>
+  </div>
+
+  <div class="plato-pocket" style="margin-top:1rem;">
+    <span class="plato-source">The Republic, Book VII — The Allegory of the Cave — Plato (trans. Jowett, public domain)</span>
+    <blockquote>
+      "And if any one tried to loose another and lead him up to the light, let them only catch the offender, and they would put him to death."
+    </blockquote>
+    <cite>— Plato, <em>The Republic</em>, Book VII, ~516e–517a</cite>
+  </div>
+
+  <div class="teacher-note">
+    <p>Don't explain these. Read them aloud, note that one is about how a mob finds its leader and the other is about what a mob does to someone who tries to show them something true — and move on. The whole point of the pocket is that the analysis comes later, when they've already seen what they're looking for. "Remember these. We'll need them."</p>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: THE NOTICE                                           -->
+<!-- ============================================================ -->
+<section id="notice">
+  <div class="section-label">Before Chapter One</div>
+  <h2>The Notice</h2>
+
+  <p>Before the first chapter, before the table of contents, Twain includes this:</p>
+
+  <div class="notice-display">
+    <blockquote>
+      Persons attempting to find a motive in this narrative will be prosecuted; persons attempting to find a moral in it will be banished; persons attempting to find a plot in it will be shot.
+    </blockquote>
+    <cite class="notice-attr">By Order of the Author</cite>
+  </div>
+
+  <p>This is usually read as a joke. It is a joke. It's also a dare.</p>
+
+  <p>Twain is preemptively defending against the sanitizing reading — the reader who wants to reduce the novel to a tidy lesson, or ignore its discomfort. He's announcing: <em>I know you'll look for the moral. You won't find it the way you're expecting to.</em></p>
+
+  <div class="teacher-note">
+    <p>Also: the Notice is designed to make this book seem like a sequel to Tom Sawyer. A kid's adventure book. When in fact it is anything but — or rather, it IS a kid's adventure book, and the crazy thing is people read it only as that. People read it as Part Two of Tom Sawyer.</p>
+    <p>To me, this feels like calling Schindler's List a sequel to Hansel and Gretel.</p>
+    <p>At any rate: this was published one year after the Supreme Court gutted the Civil Rights Act. During the rise of Jim Crow. After the abandonment of Reconstruction. And Twain says: no moral here.</p>
+    <p>The most morally urgent novel in American literature announces it has no moral. That's not a disclaimer. That's a challenge.</p>
+  </div>
+
+  <div class="activity">
+    <div class="activity-label student-prompt">Consider Together</div>
+    <h3>Two Things About the Notice</h3>
+    <ul>
+      <li>The Notice is written in <strong>Twain's voice</strong>, not Huck's. It sits outside the novel as a frame. The novel hasn't begun yet and there are already two layers — the author and the character narrator. <em>The Secret History</em> has no equivalent frame. Richard Papen tells you someone was murdered on page one and never pretends otherwise. What does that difference tell you about the two narrators?</li>
+      <li>If you were going to write a Notice for <em>The Secret History</em> — one that captured Richard Papen's relationship to what he's about to tell you — what would it say?</li>
+    </ul>
+
+    <span class="answer-label student-prompt">Write your version of the Notice for The Secret History:</span>
+    <textarea class="answer-box" placeholder="Persons attempting to find a..."></textarea>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: DIALECT                                              -->
+<!-- ============================================================ -->
+<section id="dialect">
+  <div class="section-label">Language and Voice</div>
+  <h2>Why the Way People Talk Matters</h2>
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Huckleberry_Finn_-_E.W._Kemble._LCCN90705830.jpg/960px-Huckleberry_Finn_-_E.W._Kemble._LCCN90705830.jpg" alt="E.W. Kemble frontispiece illustration, original 1884 edition of Huckleberry Finn" />
+    <figcaption>E.W. Kemble's frontispiece for the first edition, 1884. Kemble created over 170 illustrations for the novel. This is the first face readers put to Huck's voice.</figcaption>
+  </figure>
+
+  <div class="twain-quote">
+    <blockquote>
+      "In this book a number of dialects are used, to wit: the Missouri negro dialect; the extremest form of the back-woods Southwestern dialect; the ordinary 'Pike County' dialect; and four modified varieties of this last. The shadings have not been done in a haphazard fashion, or by guesswork; but painstakingly, and with the trustworthy guidance and support of personal familiarity with these several forms of speech."
+    </blockquote>
+    <cite>— Mark Twain, "Explanatory" note to Adventures of Huckleberry Finn (1884)</cite>
+  </div>
+
+  <p>He was doing something linguistically precise. He wrote to his editor: <em>"I amend dialect stuff by talking and talking and talking it till it sounds right."</em> A note found in his papers reads simply: <strong class="gold-text">"Huck says nuther."</strong> He tracked individual word choices by character.</p>
+
+  <p>The way a character speaks is who they are. Dialect carries class, region, education, age, and history. It is not decoration.</p>
+
+  <h3 class="mt2">Huck's Dialect: Pike County, Missouri</h3>
+  <p>Huck speaks the "ordinary Pike County dialect" — named after Pike County, Missouri, in the northeast of the state on the Mississippi River. This dialect belongs to a family descended from Scots-Irish settlers who came through the Appalachian Mountains. It has deep roots — some features echo Elizabethan English.</p>
+  <p>The living version most closely preserved today is Ozark English, spoken in the Ozark Mountains of southwest Missouri and northwest Arkansas. It's the closest you can hear — right now, today — to what Huck would have sounded like.</p>
+  <p><em>We'll return to the Elizabethan connection when we read Shakespeare in Original Pronunciation. The thread runs deeper than it looks.</em></p>
+
+  <!-- Native American languages map — dialect context -->
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Langs_N.Amer.png/960px-Langs_N.Amer.png" alt="Map of North American Indigenous language families" />
+    <figcaption>Indigenous language families of North America before European contact. Before English, French, or Spanish, this continent held hundreds of distinct language families — many as different from each other as English is from Chinese. The whole idea of a "standard" language in North America is about 400 years old.</figcaption>
+  </figure>
+
+  <h3 class="mt2">A Quick Pronunciation Guide</h3>
+  <div class="pron-guide">
+    <div class="pron-row header">
+      <span class="pron-head">Twain's text</span>
+      <span class="pron-head">How to say it</span>
+      <span class="pron-head">What's happening</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">without you have read</span>
+      <span class="pron-say">without = unless</span>
+      <span class="pron-note">Dialectal use of "without" to mean "unless." Say it exactly as written — direct, slightly defiant.</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">ain't no matter</span>
+      <span class="pron-say">AIN't — short and flat</span>
+      <span class="pron-note">Double negative ("ain't no") is a grammatical pattern, not an error. Don't perform the "ain't."</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">he told the truth, mainly</span>
+      <span class="pron-say">pause before "mainly"</span>
+      <span class="pron-note">"Mainly" qualifies the truth-claim in the same breath as making it. Let the beat happen before it lands.</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">which he stretched</span>
+      <span class="pron-say">stretchT — not stretch-ED</span>
+      <span class="pron-note">Final -ed often contracts to -t in this dialect. Natural, not performed.</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">I never seen</span>
+      <span class="pron-say">standard dialect grammar</span>
+      <span class="pron-note">"Never seen" instead of "never saw." A consistent Pike County pattern.</span>
+    </div>
+    <div class="pron-row">
+      <span class="pron-orig">The rhythm overall</span>
+      <span class="pron-say">unhurried. conversational.</span>
+      <span class="pron-note">More important than any individual sound. Huck is talking <em>to you</em>. Find the pace of someone with all the time in the world and something to say.</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: RHOTIC / NON-RHOTIC                                 -->
+<!-- ============================================================ -->
+<section id="rhotic">
+  <div class="section-label">A Key Concept in Linguistics</div>
+  <h2>Two Kinds of R</h2>
+
+  <p>Dialects have systems — internal rules that produce consistent effects. One of the clearest demonstrations: the distinction between <strong>rhotic</strong> and <strong>non-rhotic</strong> speech.</p>
+  <p>One question: <em>what happens to the letter R when it comes after a vowel?</em></p>
+
+  <table class="dialect-table">
+    <thead>
+      <tr>
+        <th>Type</th><th>Rule</th><th>"butter"</th><th>"car"</th><th>"bird"</th><th>Where</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong class="rhotic-c">Rhotic</strong></td>
+        <td style="font-size:0.82rem;font-weight:300;">R is pronounced after vowels</td>
+        <td class="word-ex rhotic-c">BUTT-err</td>
+        <td class="word-ex rhotic-c">CARR</td>
+        <td class="word-ex rhotic-c">BRRRD</td>
+        <td style="font-size:0.82rem;font-weight:300;color:var(--text-muted);">Missouri, Ozarks, most American English, Canada</td>
+      </tr>
+      <tr>
+        <td><strong class="nonrhotic-c">Non-Rhotic</strong></td>
+        <td style="font-size:0.82rem;font-weight:300;">R softens or disappears after vowels</td>
+        <td class="word-ex nonrhotic-c">BUTT-uh</td>
+        <td class="word-ex nonrhotic-c">CAH</td>
+        <td class="word-ex nonrhotic-c">BUHD</td>
+        <td style="font-size:0.82rem;font-weight:300;color:var(--text-muted);">Louisiana, New Orleans, Boston, New York (trad.), British English, Australian</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>The New Orleans surprise:</strong> The "Yat" accent sounds more like Brooklyn than the Deep South. Both are non-rhotic port cities with similar settlement histories. The R-drop connects them — not geography.</p>
+  </div>
+
+  <h3 class="mt2">Why This Matters for Huck Finn</h3>
+  <p>Huck speaks a rhotic dialect — Pike County, Missouri. He pronounces his R's.</p>
+  <p>Jim's dialect — what Twain called the Missouri Negro dialect, which belongs to the family now called African American Vernacular English — tends toward non-rhotic features. Jim's R's soften in ways Huck's don't.</p>
+  <p>So Huck and Jim are traveling together down the Mississippi River, and their mouths are doing different things with the same letter. As they travel south — toward Louisiana, toward New Orleans — the whole world around them becomes less rhotic. <strong>It's audible geography. The river trip is a phonological journey.</strong></p>
+
+  <div class="callout">
+    <p><strong>A thread to hold all year:</strong> British English is non-rhotic. Einstein's German-inflected English is non-rhotic. When we work with Dylan Thomas, Einstein recordings, and Original Pronunciation Shakespeare — the R will keep reappearing. You're planting this concept now.</p>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: ERIK SINGER                                          -->
+<!-- ============================================================ -->
+<section id="singer">
+  <div class="section-label">Watch Together</div>
+  <h2>Erik Singer: A Tour of American Accents</h2>
+  <p>Erik Singer is a dialect coach for film and television. We're focusing on specific sections, but both videos (~12–15 min each) are worth watching in full.</p>
+
+  <div class="video-block">
+    <div class="video-block-hdr">
+      <h3>Part 2 — The South and Midwest</h3>
+      <a class="full-link" href="https://www.youtube.com/watch?v=IsE_8j5RL3k" target="_blank">Watch full video ↗</a>
+    </div>
+    <div class="video-cards">
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=9" target="_blank">
+        <span class="vc-time">00:09 — Start Here</span>
+        <span class="vc-name">Southern Louisiana</span>
+        <span class="vc-note">Singer introduces rhotic vs. non-rhotic. Begin here before anything else.</span>
+      </a>
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=164" target="_blank">
+        <span class="vc-time">02:44</span>
+        <span class="vc-name">New Orleans "Yat"</span>
+        <span class="vc-note">Sounds like Brooklyn. The non-rhotic thread, not geography.</span>
+      </a>
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=206" target="_blank">
+        <span class="vc-time">03:26</span>
+        <span class="vc-name">Cajun English</span>
+        <span class="vc-note">French-influenced. A completely different system from Yat, same state.</span>
+      </a>
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=240" target="_blank">
+        <span class="vc-time">04:00</span>
+        <span class="vc-name">Texas</span>
+        <span class="vc-note">Rhotic. Very different from Louisiana right next door.</span>
+      </a>
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=335" target="_blank">
+        <span class="vc-time">05:35</span>
+        <span class="vc-name">Oklahoma</span>
+        <span class="vc-note">Oklahoma was Indian Territory until 1907. When Huck imagines "lighting out for the Territory" — this is what he means. Land that was Choctaw, Cherokee, Chickasaw, Creek, and Seminole.</span>
+      </a>
+      <a class="video-card key" href="https://youtu.be/IsE_8j5RL3k?t=394" target="_blank">
+        <span class="vc-time">06:38 — Key Stop</span>
+        <span class="vc-name">The Ozarks</span>
+        <span class="vc-note">The closest living relative to Huck's Pike County dialect. Scots-Irish Appalachian roots, some echoes of Elizabethan English.</span>
+      </a>
+      <a class="video-card" href="https://youtu.be/IsE_8j5RL3k?t=567" target="_blank">
+        <span class="vc-time">09:27</span>
+        <span class="vc-name">St. Louis &amp; Memphis</span>
+        <span class="vc-note">St. Louis is on the Mississippi. Henry Winter is from St. Louis. He and Huck Finn are from the same geographic world.</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="video-block">
+    <div class="video-block-hdr">
+      <h3>Part 1 — New England, The East, African American English</h3>
+      <a class="full-link" href="https://www.youtube.com/watch?v=H1KP4ztKK0A" target="_blank">Watch full video ↗</a>
+    </div>
+    <div class="video-cards">
+      <a class="video-card" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">
+        <span class="vc-time">02:45</span>
+        <span class="vc-name">Boston</span>
+        <span class="vc-note">Non-rhotic New England — the dominant register of Hampden. The accent Richard Papen pretends to have.</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=271" target="_blank">
+        <span class="vc-time">04:31</span>
+        <span class="vc-name">African American English</span>
+        <span class="vc-note">A rich, systematic dialect with its own deep history. Often non-rhotic. Jim's dialect in Huck Finn belongs to this family.</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=655" target="_blank">
+        <span class="vc-time">10:55</span>
+        <span class="vc-name">Virginia</span>
+        <span class="vc-note">Old Southern. Charles and Camilla Macaulay are from Virginia — softer Southern, not Deep South.</span>
+      </a>
+      <a class="video-card" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=720" target="_blank">
+        <span class="vc-time">12:00</span>
+        <span class="vc-name">Appalachia</span>
+        <span class="vc-note">The source dialect for the Ozarks and Pike County. This is where Huck's voice originates, generations back.</span>
+      </a>
+      <a class="video-card key" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=962" target="_blank">
+        <span class="vc-time">16:02 — Key Stop</span>
+        <span class="vc-name">"General American"</span>
+        <span class="vc-note">The flat, placeless accent of the American interior — California, much of the Midwest. Richard Papen's real voice. The one he arrived at Hampden trying to hide.</span>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION: HAMPDEN'S VOICES                                     -->
+<!-- ============================================================ -->
+<section id="hampden">
+  <div class="section-label">The Secret History</div>
+  <h2>The Voices in the Room at Hampden</h2>
+
+  <p>Donna Tartt's novel is set at a small Vermont college. The characters come from all over — and several of them are performing accents that aren't their own. The novel is about identity performance, and it begins in how people talk.</p>
+
+  <div class="img-row">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Camel%27s_Hump_and_Winooski_River%2C_Green_Mountains%2C_Vermont_%282381062779%29.jpg/960px-Camel%27s_Hump_and_Winooski_River%2C_Green_Mountains%2C_Vermont_%282381062779%29.jpg" alt="Camel's Hump and Winooski River, Green Mountains, Vermont, postcard c. 1930-1945" />
+      <figcaption>Camel's Hump and the Winooski River, Vermont, c. 1930–45. The Green Mountains are among the oldest exposed rock in North America — metamorphic schist and quartzite. The valleys are narrow. The rivers cut downward.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Ames_Hall_Green_Mountain_College_1_Brennan_Circle_Poultney_VT_November_2013.jpg/960px-Ames_Hall_Green_Mountain_College_1_Brennan_Circle_Poultney_VT_November_2013.jpg" alt="Ames Hall, Green Mountain College, Poultney Vermont — Federal style brick building" />
+      <figcaption>Ames Hall, Green Mountain College, Poultney, Vermont. A small liberal arts college in the Green Mountains — close enough to Hampden. "Dominated by the grand, Federal style."</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Muscovite_schist_%28Appalachian_Gap%2C_Green_Mountains%2C_Vermont%2C_USA%29_7.jpg/960px-Muscovite_schist_%28Appalachian_Gap%2C_Green_Mountains%2C_Vermont%2C_USA%29_7.jpg" alt="Muscovite schist outcrop, Appalachian Gap, Green Mountains, Vermont" />
+    <figcaption>Muscovite schist, Appalachian Gap, Green Mountains, Vermont. This is what the Green Mountains are made of — metamorphic rock, crystalline, ancient, foliated into bands. Hard and secretive. Compare to the soft sedimentary limestone of the Mississippi River valley.</figcaption>
+  </figure>
+
+  <div class="character-grid">
+    <div class="character-card">
+      <div class="char-name">The Setting</div>
+      <div class="char-origin">Hampden, Vermont</div>
+      <div class="char-voice">The room sounds like Boston — non-rhotic, educated, New England clipped. Julian Morrow's classroom runs on a particular cultivated register: classical, precise, with slightly British assumptions about what counts as intelligence.</div>
+    </div>
+    <div class="character-card key">
+      <div class="char-name">Richard Papen</div>
+      <div class="char-origin">Plano, California → Performing Boston</div>
+      <div class="char-voice">Richard's real accent is "General American" — the flat, placeless voice of the California interior. When he arrives at Hampden, he performs a different identity. He is <em>linguistically passing</em>. The entire novel is about identity performance, and it starts in his mouth.</div>
+    </div>
+    <div class="character-card">
+      <div class="char-name">Henry Winter</div>
+      <div class="char-origin">St. Louis, Missouri</div>
+      <div class="char-voice">St. Louis is on the Mississippi River. Henry is from the same geographic world as Huck Finn. He is what happens to that world's money and intellect when it arrives at a Vermont college and reads Greek.</div>
+    </div>
+    <div class="character-card">
+      <div class="char-name">Charles &amp; Camilla Macaulay</div>
+      <div class="char-origin">Virginia (old family)</div>
+      <div class="char-voice">Old Southern, not Deep South. The Virginia accent is distinct from both the Ozarks and from Louisiana — softer, more preserved, with characteristic vowel patterns. Rhotic, but different from Missouri.</div>
+    </div>
+    <div class="character-card">
+      <div class="char-name">Francis Abernathy</div>
+      <div class="char-origin">New England (wealthy, old money)</div>
+      <div class="char-voice">Closest to the setting's register. Non-rhotic, educated, Boston-adjacent. Francis sounds like someone who has always belonged in rooms like this. He doesn't have to perform.</div>
+    </div>
+    <div class="character-card">
+      <div class="char-name">Bunny Corcoran</div>
+      <div class="char-origin">Connecticut</div>
+      <div class="char-voice">New England, but louder and less refined than Francis. Bunny performs belonging more visibly than the others — he is also, in a different way, pretending to be something he isn't.</div>
+    </div>
+  </div>
+
+  <div class="activity">
+    <div class="activity-label student-prompt">The Thread Running Through Both Novels</div>
+    <h3>Performing Identities</h3>
+    <p class="wide">Richard Papen arrives at Hampden from Plano, California. He tells people he is from Boston. He is performing a non-rhotic New England identity over a rhotic General American one — putting on vowels and dropping R's he was never born with.</p>
+    <p class="wide mt1">Every person in Julian's classroom is performing a version of belonging. The question the novel asks — and never fully answers — is whether any of them are really there at all.</p>
+    <p class="wide mt1"><strong>Compare:</strong> Huck Finn also performs identities throughout the novel. He disguises himself repeatedly, sometimes brilliantly, sometimes desperately. But Huck does it to survive. Richard does it to belong. What's the difference between those two things?</p>
+  </div>
+
+  <!-- Bottom image row: Bingham pair -->
+  <div class="img-row mt2">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/George_Caleb_Bingham_001FXD.jpg/960px-George_Caleb_Bingham_001FXD.jpg" alt="George Caleb Bingham, Fur Traders Descending the Missouri, 1845" />
+      <figcaption>George Caleb Bingham, <em>Fur Traders Descending the Missouri</em> (1845). Two figures on still brown water. Painted the same decade Huck Finn is set. Metropolitan Museum of Art, open access.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/George_Caleb_Bingham%2C_The_Jolly_Flatboatmen%2C_1846%2C_NGA_75206.jpg/960px-George_Caleb_Bingham%2C_The_Jolly_Flatboatmen%2C_1846%2C_NGA_75206.jpg" alt="George Caleb Bingham, The Jolly Flatboatmen, 1846" />
+      <figcaption>George Caleb Bingham, <em>The Jolly Flatboatmen</em> (1846). One year after Fur Traders. Same river, different mood. Compare the two: silence and mystery versus noise and exuberance. Both are on the same water.</figcaption>
+    </figure>
+  </div>
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Huck_and_jim_on_raft.jpg/960px-Huck_and_jim_on_raft.jpg" alt="E.W. Kemble illustration of Huck and Jim on the raft, first edition 1884" />
+    <figcaption>E.W. Kemble, <em>Huck and Jim on the Raft</em>, first edition illustration (1884–85). The river as a world between worlds — neither the shore they left nor the shore they're heading toward.</figcaption>
+  </figure>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-label">Yoshida School — Humanities Core Track</div>
+    <div class="footer-text">Unit One: Arrivals</div>
+  </div>
+  <div>
+    <div class="footer-label">Read for Next Session</div>
+    <ul class="reading-list">
+      <li>Huck Finn, Ch. 7–13</li>
+      <li>The Secret History, Ch. 3–5</li>
+      <li>Twain, "The United States of Lyncherdom" (toggle above)</li>
+      <li>Ellison, "A Party Down by the Square" (toggle above)</li>
+      <li>Zitkala-Ša, "The School Days of an Indian Girl" — <a href="https://www.gutenberg.org/files/10376/10376-h/10376-h.htm" target="_blank">free at Project Gutenberg ↗</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<script>
+  function toggleSection(id) {
+    var el = document.getElementById(id);
+    var btn = document.querySelector('[data-toggle="' + id + '"]');
+    if (!el || !btn) return;
+    var isOpen = el.classList.contains('open');
+    if (isOpen) {
+      el.classList.remove('open');
+      btn.classList.remove('open');
+      btn.textContent = btn.getAttribute('data-open');
+    } else {
+      el.classList.add('open');
+      btn.classList.add('open');
+      btn.textContent = btn.getAttribute('data-close');
+    }
+  }
+
+  // Replace broken/missing images with styled placeholders
+  document.querySelectorAll('img').forEach(function(img) {
+    function makePh() {
+      var ph = document.createElement('div');
+      ph.className = 'img-broken';
+      ph.textContent = '[ ' + (img.alt || 'image') + ' ]';
+      if (img.parentNode) img.parentNode.replaceChild(ph, img);
+    }
+    if (!img.getAttribute('src') || img.getAttribute('src') === '') {
+      makePh();
+    } else {
+      img.addEventListener('error', makePh);
+    }
+  });
+</script>
+
+</body>
+</html>
