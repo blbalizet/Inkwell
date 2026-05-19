@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings Practice - Bernard & Alex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .intro p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #34495e;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .dialogue-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dialogue-item.correct {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+
+        .speaker {
+            font-weight: bold;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .speaker.bernard {
+            color: #3498db;
+        }
+
+        .speaker.alex {
+            color: #e74c3c;
+        }
+
+        .dialogue-text {
+            font-size: 1.2em;
+            font-style: italic;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 150px;
+            padding: 2px 8px;
+            border-bottom: 2px solid #3498db;
+            color: #999;
+        }
+
+        .blank.filled {
+            color: #28a745;
+            font-weight: bold;
+            border-bottom-color: #28a745;
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .choice-btn {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.05em;
+            text-align: left;
+            font-family: 'Georgia', serif;
+        }
+
+        .choice-btn:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+            transform: translateX(5px);
+        }
+
+        .choice-btn.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .choice-btn.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .feedback.try-again {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .export-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .attempt-info {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .export-btn, .reset-btn {
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .export-btn {
+            background: #3498db;
+        }
+
+        .export-btn:hover {
+            background: #2980b9;
+        }
+
+        .reset-btn {
+            background: #e74c3c;
+        }
+
+        .reset-btn:hover {
+            background: #c0392b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Greetings Practice</h1>
+    <div class="subtitle">A conversation between Bernard & Alex</div>
+
+    <div class="intro">
+        <p><strong>Welcome!</strong> In this exercise, you'll practice Spanish greetings through a natural conversation.</p>
+        <p>Both Bernard and Alex have some missing words. Click the correct option to fill in each blank. If you pick the wrong one, just try again—there's no penalty!</p>
+        <p><strong>Goal:</strong> Complete the entire conversation correctly, then you can reset and practice again.</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-bar" style="width: 0%">0%</div>
+    </div>
+
+    <div id="dialogue-container"></div>
+
+    <div class="export-section">
+        <div class="attempt-info">
+            Attempt #<span id="attempt-number">1</span>
+        </div>
+        <div class="button-group">
+            <button class="export-btn" onclick="exportResults()">Export Results as JSON</button>
+            <button class="reset-btn" onclick="resetPractice()">Reset & Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        // Dialogue data with blanks
+        const dialogueData = [
+            // Basic Greetings
+            { section: "Basic Greetings", speaker: "Bernard", text: "_____", answer: "¡Hola!", choices: ["¡Hola!", "Adiós", "Mucho gusto", "Me llamo Bernard"] },
+            { section: "Basic Greetings", speaker: "Alex", text: "_____", answer: "¡Hola!", choices: ["¡Hola!", "Encantado", "¿Qué tal?", "Hasta luego"] },
+            { section: "Basic Greetings", speaker: "Bernard", text: "_____", answer: "Buenos días", choices: ["Buenos días", "Buenas noches", "Hasta pronto", "Igualmente"] },
+            { section: "Basic Greetings", speaker: "Alex", text: "_____", answer: "Buenos días", choices: ["Buenos días", "Buenas tardes", "¿Cómo estás?", "Todo bien"] },
+            { section: "Basic Greetings", speaker: "Bernard", text: "_____", answer: "Buenas tardes", choices: ["Buenas tardes", "Buenos días", "Nos vemos", "¿Y tú?"] },
+            { section: "Basic Greetings", speaker: "Alex", text: "_____", answer: "Buenas tardes", choices: ["Buenas tardes", "Buenas noches", "Estoy bien", "Mucho gusto"] },
+            { section: "Basic Greetings", speaker: "Bernard", text: "_____", answer: "Buenas noches", choices: ["Buenas noches", "Buenos días", "¿Cómo te llamas?", "Adiós"] },
+            { section: "Basic Greetings", speaker: "Alex", text: "_____", answer: "Buenas noches", choices: ["Buenas noches", "Buenas tardes", "Igualmente", "Soy Alex"] },
+            
+            // Introducing Names
+            { section: "Introducing Names", speaker: "Bernard", text: "_____ Bernard.", answer: "Me llamo", choices: ["Me llamo", "Soy", "Mucho gusto", "¿Cómo estás?"] },
+            { section: "Introducing Names", speaker: "Alex", text: "_____ Alex.", answer: "Me llamo", choices: ["Me llamo", "Encantado", "Estoy bien", "Adiós"] },
+            { section: "Introducing Names", speaker: "Bernard", text: "¿_____ _____?", answer: "Cómo te llamas", choices: ["Cómo te llamas", "Qué tal", "Y tú", "Cómo estás"] },
+            { section: "Introducing Names", speaker: "Alex", text: "Me llamo Alex. _____?", answer: "¿Y tú?", choices: ["¿Y tú?", "¿Y usted?", "¿Qué tal?", "Mucho gusto"] },
+            { section: "Introducing Names", speaker: "Bernard", text: "_____ Bernard.", answer: "Soy", choices: ["Soy", "Me llamo", "Estoy", "Encantado"] },
+            { section: "Introducing Names", speaker: "Alex", text: "_____.", answer: "Mucho gusto", choices: ["Mucho gusto", "¿Cómo estás?", "Buenos días", "Hasta luego"] },
+            { section: "Introducing Names", speaker: "Bernard", text: "_____.", answer: "Mucho gusto", choices: ["Mucho gusto", "Igualmente", "Encantado", "Todo bien"] },
+            { section: "Introducing Names", speaker: "Alex", text: "_____.", answer: "Encantado", choices: ["Encantado", "Mucho gusto", "Estoy bien", "Adiós"] },
+            { section: "Introducing Names", speaker: "Bernard", text: "_____.", answer: "Igualmente", choices: ["Igualmente", "Mucho gusto", "Encantado", "Gracias"] },
+            
+            // Formal Introductions
+            { section: "Formal Introductions", speaker: "Bernard", text: "¿Cómo _____ _____ usted?", answer: "se llama", choices: ["se llama", "te llamas", "estás", "está"] },
+            { section: "Formal Introductions", speaker: "Alex", text: "Me llamo Alex. _____?", answer: "¿Y usted?", choices: ["¿Y usted?", "¿Y tú?", "¿Cómo estás?", "Mucho gusto"] },
+            { section: "Formal Introductions", speaker: "Bernard", text: "Es un placer _____.", answer: "conocerte", choices: ["conocerte", "verte", "saludarte", "encontrarte"] },
+            { section: "Formal Introductions", speaker: "Alex", text: "El placer es _____.", answer: "mío", choices: ["mío", "tuyo", "nuestro", "suyo"] },
+            
+            // Introducing Others
+            { section: "Introducing Others", speaker: "Bernard", text: "_____ _____ a mi amigo Sam.", answer: "Te presento", choices: ["Te presento", "Le presento", "Este es", "Esta es"] },
+            { section: "Introducing Others", speaker: "Alex", text: "Mucho gusto, _____.", answer: "Sam", choices: ["Sam", "Bernard", "amigo", "señor"] },
+            { section: "Introducing Others", speaker: "Bernard", text: "_____ _____ mi amiga María.", answer: "Esta es", choices: ["Esta es", "Este es", "Te presento", "Ella es"] },
+            { section: "Introducing Others", speaker: "Alex", text: "Encantado de _____.", answer: "conocerte", choices: ["conocerte", "verte", "saludarte", "hablarte"] },
+            
+            // How Are You
+            { section: "How Are You", speaker: "Bernard", text: "¿_____ _____?", answer: "Cómo estás", choices: ["Cómo estás", "Qué tal", "Cómo te llamas", "Y tú"] },
+            { section: "How Are You", speaker: "Alex", text: "_____ _____, gracias. ¿Y tú?", answer: "Estoy bien", choices: ["Estoy bien", "Muy bien", "Todo bien", "Soy Alex"] },
+            { section: "How Are You", speaker: "Bernard", text: "_____ _____, gracias.", answer: "Muy bien", choices: ["Muy bien", "Estoy bien", "Todo bien", "Mucho gusto"] },
+            { section: "How Are You", speaker: "Alex", text: "¿_____ _____?", answer: "Qué tal", choices: ["Qué tal", "Cómo estás", "Y tú", "Cómo te llamas"] },
+            { section: "How Are You", speaker: "Bernard", text: "_____ _____.", answer: "Todo bien", choices: ["Todo bien", "Muy bien", "Estoy bien", "Mucho gusto"] },
+            
+            // Farewells
+            { section: "Farewells", speaker: "Bernard", text: "_____.", answer: "Adiós", choices: ["Adiós", "Hola", "Gracias", "Mucho gusto"] },
+            { section: "Farewells", speaker: "Alex", text: "_____.", answer: "Adiós", choices: ["Adiós", "Hasta luego", "Nos vemos", "Buenos días"] },
+            { section: "Farewells", speaker: "Bernard", text: "_____ _____.", answer: "Hasta luego", choices: ["Hasta luego", "Hasta pronto", "Nos vemos", "Buenos días"] },
+            { section: "Farewells", speaker: "Alex", text: "_____ _____.", answer: "Hasta pronto", choices: ["Hasta pronto", "Hasta luego", "Nos vemos", "Adiós"] },
+            { section: "Farewells", speaker: "Bernard", text: "_____ _____.", answer: "Nos vemos", choices: ["Nos vemos", "Hasta luego", "Hasta pronto", "Todo bien"] }
+        ];
+
+        // State
+        let currentAttempt = 1;
+        let allAttempts = [];
+        let userAnswers = [];
+        let currentSection = "";
+
+        // Load from localStorage
+        function loadFromStorage() {
+            const saved = localStorage.getItem('greetingsProgress');
+            if (saved) {
+                const data = JSON.parse(saved);
+                currentAttempt = data.currentAttempt || 1;
+                allAttempts = data.allAttempts || [];
+                document.getElementById('attempt-number').textContent = currentAttempt;
+            }
+        }
+
+        // Save to localStorage
+        function saveToStorage() {
+            localStorage.setItem('greetingsProgress', JSON.stringify({
+                currentAttempt,
+                allAttempts,
+                lastSaved: new Date().toISOString()
+            }));
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const completed = userAnswers.filter(a => a !== null).length;
+            const total = dialogueData.length;
+            const percentage = Math.round((completed / total) * 100);
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+        }
+
+        // Render dialogue
+        function renderDialogue() {
+            const container = document.getElementById('dialogue-container');
+            container.innerHTML = '';
+            
+            dialogueData.forEach((item, index) => {
+                // Add section title if new section
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'section-title';
+                    sectionDiv.textContent = item.section;
+                    container.appendChild(sectionDiv);
+                }
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'dialogue-item';
+                itemDiv.id = `item-${index}`;
+                
+                const speakerClass = item.speaker.toLowerCase();
+                const blankText = userAnswers[index] || "_____";
+                const isFilled = userAnswers[index] !== null;
+                
+                if (isFilled) {
+                    itemDiv.classList.add('correct');
+                }
+                
+                itemDiv.innerHTML = `
+                    <div class="speaker ${speakerClass}">${item.speaker}:</div>
+                    <div class="dialogue-text">
+                        <span class="blank ${isFilled ? 'filled' : ''}" id="blank-${index}">${blankText}</span>
+                    </div>
+                    <div class="choices" id="choices-${index}">
+                        ${item.choices.map(choice => `
+                            <button class="choice-btn ${isFilled ? 'disabled' : ''}" 
+                                onclick="selectChoice(${index}, '${choice.replace(/'/g, "\\'")}')">
+                                ${choice}
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-${index}"></div>
+                `;
+                
+                container.appendChild(itemDiv);
+            });
+        }
+
+        // Select choice
+        function selectChoice(index, selected) {
+            const item = dialogueData[index];
+            const isCorrect = selected === item.answer;
+            
+            if (isCorrect) {
+                userAnswers[index] = selected;
+                const itemDiv = document.getElementById(`item-${index}`);
+                const blank = document.getElementById(`blank-${index}`);
+                const choices = document.querySelectorAll(`#choices-${index} .choice-btn`);
+                
+                itemDiv.classList.add('correct');
+                blank.textContent = selected;
+                blank.classList.add('filled');
+                
+                choices.forEach(btn => {
+                    btn.classList.add('disabled');
+                    if (btn.textContent === selected) {
+                        btn.classList.add('correct');
+                    }
+                });
+                
+                updateProgress();
+                saveToStorage();
+            } else {
+                const feedbackDiv = document.getElementById(`feedback-${index}`);
+                feedbackDiv.innerHTML = '<div class="feedback try-again">Try again!</div>';
+                setTimeout(() => {
+                    feedbackDiv.innerHTML = '';
+                }, 1000);
+            }
+        }
+
+        // Export results
+        function exportResults() {
+            allAttempts.push({
+                attemptNumber: currentAttempt,
+                completedAt: new Date().toISOString(),
+                answers: dialogueData.map((item, i) => ({
+                    speaker: item.speaker,
+                    correctAnswer: item.answer,
+                    userAnswer: userAnswers[i] || null,
+                    isCorrect: userAnswers[i] === item.answer
+                }))
+            });
+
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const dataStr = JSON.stringify({ attempts: allAttempts }, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `BERNARD_LOOK_HERE_${timestamp}.json`;
+            link.click();
+            
+            saveToStorage();
+        }
+
+        // Reset practice
+        function resetPractice() {
+            if (!confirm('Are you sure you want to start over? Your current progress will be saved before resetting.')) {
+                return;
+            }
+            
+            // Save current attempt
+            if (userAnswers.some(a => a !== null)) {
+                allAttempts.push({
+                    attemptNumber: currentAttempt,
+                    completedAt: new Date().toISOString(),
+                    answers: dialogueData.map((item, i) => ({
+                        speaker: item.speaker,
+                        correctAnswer: item.answer,
+                        userAnswer: userAnswers[i] || null,
+                        isCorrect: userAnswers[i] === item.answer
+                    }))
+                });
+            }
+            
+            currentAttempt++;
+            userAnswers = [];
+            currentSection = "";
+            document.getElementById('attempt-number').textContent = currentAttempt;
+            
+            renderDialogue();
+            updateProgress();
+            saveToStorage();
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize
+        loadFromStorage();
+        userAnswers = new Array(dialogueData.length).fill(null);
+        renderDialogue();
+        updateProgress();
+    </script>
+</body>
+</html>

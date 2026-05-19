@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greetings Practice Worksheet</title>
+    <style>
+        @media print {
+            body {
+                margin: 0;
+                padding: 20px;
+            }
+            .no-print {
+                display: none;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.8;
+            color: #000;
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .instructions {
+            background: #f5f5f5;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .instructions p {
+            margin-bottom: 10px;
+        }
+
+        .print-btn {
+            background: #3498db;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto 30px;
+        }
+
+        .print-btn:hover {
+            background: #2980b9;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #333;
+        }
+
+        .dialogue-line {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #fafafa;
+            border-left: 4px solid #666;
+        }
+
+        .speaker {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .speaker-bernard {
+            color: #2c3e50;
+        }
+
+        .speaker-alex {
+            color: #555;
+        }
+
+        .text-with-blank {
+            font-size: 1.15em;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .blank-line {
+            display: inline-block;
+            min-width: 200px;
+            border-bottom: 2px solid #000;
+            margin: 0 5px;
+        }
+
+        .choices {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .choice-item {
+            margin: 5px 0;
+            padding: 5px;
+            font-size: 1em;
+        }
+
+        .choice-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .answer-key {
+            margin-top: 50px;
+            padding: 20px;
+            background: #e8e8e8;
+            border: 3px solid #333;
+        }
+
+        .answer-key h2 {
+            margin-bottom: 15px;
+        }
+
+        .answer-key-item {
+            margin: 5px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+
+    <div class="header">
+        <h1>Greetings Practice Worksheet</h1>
+        <p><strong>Name:</strong> _________________________ <strong>Date:</strong> _____________</p>
+    </div>
+
+    <div class="instructions no-print">
+        <p><strong>Instructions:</strong></p>
+        <ul>
+            <li>Read each line of the dialogue</li>
+            <li>Fill in the blank with the correct Spanish phrase</li>
+            <li>Choose from the multiple choice options below each blank</li>
+            <li>Write neatly on the line provided</li>
+        </ul>
+    </div>
+
+    <!-- Basic Greetings -->
+    <div class="section">
+        <div class="section-title">Basic Greetings</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> ¡Hola!</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Adiós</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Me llamo Bernard</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> ¡Hola!</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Qué tal?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Hasta luego</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenos días</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Buenas noches</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Igualmente</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenos días</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Cómo estás?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Encantado</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenas tardes</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Nos vemos</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenas tardes</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Estoy bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Todo bien</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenas noches</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Cómo te llamas?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Soy Bernard</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span></div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Buenas noches</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Igualmente</div>
+                <div class="choice-item"><span class="choice-label">C)</span> ¿Y tú?</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Introducing Names -->
+    <div class="section">
+        <div class="section-title">Introducing Names</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span> Bernard.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Me llamo</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Cómo estás?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span> Alex.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Me llamo</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Estoy bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Encantado</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank">¿<span class="blank-line"></span>?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Cómo te llamas</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Qué tal</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Y usted</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">Me llamo Alex. <span class="blank-line"></span>?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> ¿Y tú?</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Qué tal?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span> Bernard.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Soy</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Me llamo</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Estoy</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Mucho gusto</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Cómo estás?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Hasta luego</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Mucho gusto</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Igualmente</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Todo bien</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Encantado</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Estoy bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Adiós</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Igualmente</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Encantado</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Gracias</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Formal Introductions -->
+    <div class="section">
+        <div class="section-title">Formal Introductions</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank">¿Cómo <span class="blank-line"></span> usted?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> se llama</div>
+                <div class="choice-item"><span class="choice-label">B)</span> te llamas</div>
+                <div class="choice-item"><span class="choice-label">C)</span> estás</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">Me llamo Alex. <span class="blank-line"></span>?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> ¿Y usted?</div>
+                <div class="choice-item"><span class="choice-label">B)</span> ¿Y tú?</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank">Es un placer <span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> conocerte</div>
+                <div class="choice-item"><span class="choice-label">B)</span> verte</div>
+                <div class="choice-item"><span class="choice-label">C)</span> saludarte</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">El placer es <span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> mío</div>
+                <div class="choice-item"><span class="choice-label">B)</span> tuyo</div>
+                <div class="choice-item"><span class="choice-label">C)</span> nuestro</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introducing Others -->
+    <div class="section">
+        <div class="section-title">Introducing Others</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span> a mi amigo Sam.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Te presento</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Este es</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Ella es</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">Mucho gusto, <span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Sam</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Bernard</div>
+                <div class="choice-item"><span class="choice-label">C)</span> amigo</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span> mi amiga María.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Esta es</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Este es</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Te presento</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">Encantado de <span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> conocerte</div>
+                <div class="choice-item"><span class="choice-label">B)</span> verte</div>
+                <div class="choice-item"><span class="choice-label">C)</span> saludarte</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- How Are You -->
+    <div class="section">
+        <div class="section-title">How Are You</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank">¿<span class="blank-line"></span>?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Cómo estás</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Qué tal</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Cómo te llamas</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>, gracias. ¿Y tú?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Estoy bien</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Muy bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Soy Alex</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>, gracias.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Muy bien</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Todo bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank">¿<span class="blank-line"></span>?</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Qué tal</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Cómo estás</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Cómo te llamas</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Todo bien</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Muy bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Mucho gusto</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Farewells -->
+    <div class="section">
+        <div class="section-title">Farewells</div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Adiós</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Hola</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Gracias</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Adiós</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Buenos días</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Nos vemos</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Hasta luego</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Buenos días</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Nos vemos</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-alex">Alex:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Hasta pronto</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Adiós</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Hasta luego</div>
+            </div>
+        </div>
+
+        <div class="dialogue-line">
+            <div class="speaker speaker-bernard">Bernard:</div>
+            <div class="text-with-blank"><span class="blank-line"></span>.</div>
+            <div class="choices">
+                <div class="choice-item"><span class="choice-label">A)</span> Nos vemos</div>
+                <div class="choice-item"><span class="choice-label">B)</span> Todo bien</div>
+                <div class="choice-item"><span class="choice-label">C)</span> Hasta pronto</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Answer Key -->
+    <div class="answer-key">
+        <h2>Answer Key (Teacher Copy)</h2>
+        <p><strong>Basic Greetings:</strong></p>
+        <div class="answer-key-item">1. A (¡Hola!) &nbsp;&nbsp; 2. A (¡Hola!) &nbsp;&nbsp; 3. A (Buenos días) &nbsp;&nbsp; 4. A (Buenos días)</div>
+        <div class="answer-key-item">5. A (Buenas tardes) &nbsp;&nbsp; 6. A (Buenas tardes) &nbsp;&nbsp; 7. A (Buenas noches) &nbsp;&nbsp; 8. A (Buenas noches)</div>
+        
+        <p style="margin-top: 15px;"><strong>Introducing Names:</strong></p>
+        <div class="answer-key-item">9. A (Me llamo) &nbsp;&nbsp; 10. A (Me llamo) &nbsp;&nbsp; 11. A (Cómo te llamas) &nbsp;&nbsp; 12. A (¿Y tú?)</div>
+        <div class="answer-key-item">13. A (Soy) &nbsp;&nbsp; 14. A (Mucho gusto) &nbsp;&nbsp; 15. A (Mucho gusto) &nbsp;&nbsp; 16. A (Encantado) &nbsp;&nbsp; 17. A (Igualmente)</div>
+        
+        <p style="margin-top: 15px;"><strong>Formal Introductions:</strong></p>
+        <div class="answer-key-item">18. A (se llama) &nbsp;&nbsp; 19. A (¿Y usted?) &nbsp;&nbsp; 20. A (conocerte) &nbsp;&nbsp; 21. A (mío)</div>
+        
+        <p style="margin-top: 15px;"><strong>Introducing Others:</strong></p>
+        <div class="answer-key-item">22. A (Te presento) &nbsp;&nbsp; 23. A (Sam) &nbsp;&nbsp; 24. A (Esta es) &nbsp;&nbsp; 25. A (conocerte)</div>
+        
+        <p style="margin-top: 15px;"><strong>How Are You:</strong></p>
+        <div class="answer-key-item">26. A (Cómo estás) &nbsp;&nbsp; 27. A (Estoy bien) &nbsp;&nbsp; 28. A (Muy bien) &nbsp;&nbsp; 29. A (Qué tal) &nbsp;&nbsp; 30. A (Todo bien)</div>
+        
+        <p style="margin-top: 15px;"><strong>Farewells:</strong></p>
+        <div class="answer-key-item">31. A (Adiós) &nbsp;&nbsp; 32. A (Adiós) &nbsp;&nbsp; 33. A (Hasta luego) &nbsp;&nbsp; 34. A (Hasta pronto) &nbsp;&nbsp; 35. A (Nos vemos)</div>
+    </div>
+</body>
+</html>
