@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit One: Arrivals — Yoshida School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    /* ===== ROOT ===== */
+    :root {
+      --bg:         #13110e;
+      --bg-card:    #1c1813;
+      --bg-lift:    #232018;
+      --bg-dark:    #0d0c09;
+      --text:       #e8ddd0;
+      --text-muted: #a09080;
+      --text-dim:   #5a4e44;
+      --gold:       #c8923a;
+      --gold-dim:   rgba(200,146,58,0.22);
+      --gold-faint: rgba(200,146,58,0.07);
+      --teal:       #4a9a96;
+      --red-dark:   #8b3a3a;
+      --nav-h:      52px;
+      --font-d:     'DM Serif Display', Georgia, serif;
+      --font-l:     'Cormorant Garamond', Georgia, serif;
+      --font-b:     'Libre Franklin', system-ui, sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--font-b); font-size: 16px; }
+    a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+    a:hover { border-color: var(--gold); }
+    strong { font-weight: 500; }
+    em { font-style: italic; }
+    hr { border: none; border-top: 1px solid rgba(138,125,110,0.12); margin: 1.5rem 0; }
+
+    /* ===== PAGE SYSTEM ===== */
+    .page {
+      display: none;
+      width: 100%;
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    .page.active { display: block; animation: pgIn 0.22s ease; }
+    @keyframes pgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .page-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    /* ===== COVER ===== */
+    #page-0 { overflow: hidden; }
+    .cover-wrap { width: 100%; height: 100%; position: relative; }
+    .cover-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cover-over {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(13,12,9,0.92) 55%);
+      padding: 4rem 2.5rem 2rem;
+    }
+    .c-eye { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .c-title { font-family: var(--font-d); font-size: clamp(3rem, 8vw, 6rem); font-weight: 400; line-height: 1.02; }
+    .c-sub { font-family: var(--font-l); font-size: 1.05rem; font-style: italic; color: var(--text-muted); margin-top: 0.4rem; }
+
+    /* ===== NAV ===== */
+    #nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(13,12,9,0.97);
+      border-top: 1px solid var(--gold-dim);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index: 200;
+    }
+    .nav-side { display: flex; align-items: center; gap: 0.5rem; }
+    .nbtn {
+      background: none;
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-size: 1rem;
+      width: 34px; height: 34px;
+      border-radius: 2px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .nbtn:hover:not(:disabled) { background: var(--gold-faint); border-color: var(--gold); }
+    .nbtn:disabled { opacity: 0.2; cursor: default; }
+    #nav-title {
+      font-family: var(--font-b);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      flex: 1;
+      padding: 0 0.75rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #nav-count { font-family: var(--font-b); font-size: 0.68rem; color: var(--text-dim); min-width: 48px; text-align: right; }
+
+    /* ===== TYPOGRAPHY ===== */
+    .label {
+      font-size: 0.64rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold);
+      display: block; margin-bottom: 0.65rem;
+    }
+    h2 { font-family: var(--font-d); font-size: clamp(1.8rem, 4vw, 2.75rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.2rem; }
+    h3 { font-family: var(--font-d); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.55rem; }
+    h4 { font-family: var(--font-d); font-size: 1.05rem; font-weight: 400; margin-bottom: 0.4rem; color: var(--text-muted); }
+    p { font-size: 0.92rem; font-weight: 300; line-height: 1.85; margin-bottom: 0.85rem; max-width: 68ch; }
+    p.w { max-width: none; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ===== IMAGES ===== */
+    figure { margin: 1.5rem 0; }
+    figure img { width: 100%; display: block; border-radius: 1px; }
+    figcaption { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; font-style: italic; margin-top: 0.5rem; line-height: 1.55; }
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin: 1.25rem 0; }
+    .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+    @media (max-width: 680px) { .g2, .g3 { grid-template-columns: 1fr; } }
+    .broken {
+      min-height: 160px; background: var(--bg-card);
+      border: 1px dashed rgba(200,146,58,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; color: var(--text-dim); font-style: italic;
+      padding: 1rem; border-radius: 1px;
+    }
+
+    /* ===== CALLOUT ===== */
+    .callout { background: var(--gold-faint); border: 1px solid var(--gold-dim); padding: 1rem 1.4rem; margin: 1.25rem 0; border-radius: 2px; }
+    .callout p { margin: 0; font-size: 0.87rem; max-width: none; }
+
+    /* ===== STORY CARDS ===== */
+    .story {
+      background: #160a0a;
+      border-left: 3px solid var(--red-dark);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .story-tag { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red-dark); display: block; margin-bottom: 0.4rem; }
+    .story h4 { color: var(--text); font-size: 1.05rem; margin-bottom: 0.75rem; }
+    .story p { font-size: 0.87rem; max-width: none; line-height: 1.75; }
+
+    /* ===== TIMELINE ===== */
+    .tl { margin: 1.5rem 0; padding-left: 2rem; position: relative; }
+    .tl::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--gold-dim); }
+    .tl-item { position: relative; margin-bottom: 1.2rem; padding-left: 0.75rem; }
+    .tl-item::before { content: ''; position: absolute; left: -2rem; top: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); border: 2px solid var(--bg); }
+    .tl-year { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 0.2rem; }
+    .tl-text { font-size: 0.87rem; font-weight: 300; line-height: 1.7; margin: 0; max-width: 60ch; }
+
+    /* ===== BLOCK QUOTE ===== */
+    .bq { background: #1a1508; border-left: 3px solid var(--gold); padding: 1.4rem 1.75rem; margin: 1.5rem 0; }
+    .bq blockquote { font-family: var(--font-l); font-size: 1.05rem; font-style: italic; line-height: 1.9; margin-bottom: 0.65rem; }
+    .bq cite { font-family: var(--font-b); font-size: 0.72rem; font-weight: 500; color: var(--gold); font-style: normal; }
+
+    /* ===== PRONUNCIATION ===== */
+    .pron-tbl { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.85rem; }
+    .pron-tbl th { font-size: 0.61rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); padding: 0.55rem 0.85rem; border-bottom: 1px solid var(--gold-dim); text-align: left; }
+    .pron-tbl td { padding: 0.7rem 0.85rem; border-bottom: 1px solid rgba(138,125,110,0.1); font-weight: 300; vertical-align: top; line-height: 1.6; }
+    .pron-tbl tr:last-child td { border-bottom: none; }
+    .pron-orig { font-family: var(--font-l); font-style: italic; }
+    .pron-ph { font-weight: 500; color: var(--gold); }
+    .ozark-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1px; background: rgba(138,125,110,0.1); margin: 1.25rem 0; }
+    .oz-item { background: var(--bg-card); padding: 0.7rem 0.9rem; }
+    .oz-word { font-family: var(--font-l); font-style: italic; font-size: 0.97rem; display: block; }
+    .oz-sound { font-size: 0.75rem; font-weight: 500; color: var(--gold); display: block; margin: 0.1rem 0; }
+    .oz-note { font-size: 0.7rem; color: var(--text-muted); font-weight: 300; }
+
+    /* ===== DIALECT TABLE ===== */
+    .dtbl { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: 0.87rem; }
+    .dtbl th { font-size: 0.61rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--gold-dim); text-align: left; }
+    .dtbl td { padding: 0.8rem 0.9rem; border-bottom: 1px solid rgba(138,125,110,0.1); font-weight: 300; vertical-align: top; line-height: 1.55; }
+    .dtbl tr:last-child td { border-bottom: none; }
+    .we { font-family: var(--font-l); font-size: 1.02rem; font-style: italic; }
+    .rh { color: #7abfb0; }
+    .nr { color: var(--gold); }
+
+    /* ===== VIDEO CARDS ===== */
+    .vblock { margin-bottom: 2rem; }
+    .vhdr { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.65rem; flex-wrap: wrap; }
+    .vhdr h3 { margin: 0; font-size: 1rem; color: var(--text-muted); }
+    .vfl { font-size: 0.7rem; font-weight: 500; color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
+    .vcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; background: rgba(138,125,110,0.1); }
+    .vc { background: var(--bg-card); padding: 1rem 1.25rem; text-decoration: none; color: var(--text); border: none; display: block; transition: background 0.15s; }
+    .vc:hover { background: var(--bg-lift); border: none; }
+    .vc.key { border-top: 2px solid var(--gold); }
+    .vt { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 0.22rem; }
+    .vn { font-family: var(--font-d); font-size: 1rem; display: block; margin-bottom: 0.28rem; }
+    .vd { font-size: 0.76rem; color: var(--text-muted); font-weight: 300; line-height: 1.5; }
+
+    /* ===== CHARACTER GRID ===== */
+    .cgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1px; background: rgba(138,125,110,0.1); margin: 1.25rem 0; }
+    .ccard { background: var(--bg-card); padding: 1.3rem; }
+    .ccard.key { border-top: 2px solid var(--gold); }
+    .cname { font-family: var(--font-d); font-size: 1.1rem; font-style: italic; margin-bottom: 0.18rem; }
+    .corig { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.55rem; }
+    .cvoice { font-size: 0.8rem; font-weight: 300; color: var(--text-muted); line-height: 1.62; margin-bottom: 0.65rem; }
+    .clinks { display: flex; flex-direction: column; gap: 0.28rem; }
+    .clink { font-size: 0.7rem; font-weight: 500; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); display: inline-block; }
+    .clink:hover { border-color: var(--gold); }
+
+    /* ===== SOUNDS LIKE ===== */
+    .sc { background: var(--bg-card); margin-bottom: 1px; display: grid; grid-template-columns: 220px 1fr; }
+    @media (max-width: 640px) { .sc { grid-template-columns: 1fr; } }
+    .sc-left { border-right: 1px solid rgba(138,125,110,0.12); padding: 1.5rem; }
+    .sc-right { padding: 1.5rem; }
+    .sc-name { font-family: var(--font-d); font-size: 1.2rem; font-style: italic; margin-bottom: 0.15rem; }
+    .sc-orig { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .sc-tag { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 0.4rem; margin-top: 0.75rem; }
+    .sc-tag:first-child { margin-top: 0; }
+    .sc-links { display: flex; flex-direction: column; gap: 0.28rem; }
+    .sc-link { font-size: 0.78rem; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); padding: 0.22rem 0.5rem; background: var(--bg-lift); border-radius: 2px; transition: background 0.15s; display: inline-block; }
+    .sc-link:hover { background: var(--gold-faint); border-color: var(--gold); }
+    .sc-listen { font-size: 0.82rem; font-weight: 300; line-height: 1.7; color: var(--text-muted); }
+
+    /* ===== MAP ACTIVITY ===== */
+    .map-wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1.5rem; margin-top: 1rem; }
+    @media (max-width: 700px) { .map-wrap { grid-template-columns: 1fr; } }
+    .map-wrap img { width: 100%; border-radius: 1px; }
+    .map-instruction { font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.75rem; max-width: none; }
+    .find-list { list-style: none; padding: 0; columns: 2; column-gap: 1rem; }
+    .find-list li { font-family: var(--font-l); font-size: 0.87rem; font-style: italic; color: var(--text-muted); padding: 0.22rem 0; border-bottom: 1px solid rgba(138,125,110,0.08); break-inside: avoid; }
+    .bmaps { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    @media (max-width: 600px) { .bmaps { grid-template-columns: 1fr; } }
+    .bmaps img { width: 100%; }
+    .comb-list { columns: 3; column-gap: 1rem; margin-top: 1.25rem; }
+    @media (max-width: 600px) { .comb-list { columns: 2; } }
+
+    /* ===== LANGUAGE NOTES ===== */
+    .notes-bg {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: calc(100vh - var(--nav-h));
+      display: grid; grid-template-columns: 1fr 1fr;
+      pointer-events: none; z-index: 0; opacity: 0.035;
+    }
+    .notes-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .notes-fg { position: relative; z-index: 1; }
+    .notes-section { margin-bottom: 1.75rem; }
+    .notes-section p { font-size: 0.87rem; max-width: none; }
+
+    /* ===== UTILITIES ===== */
+    .mt1 { margin-top: 1rem; }
+    .mt2 { margin-top: 2rem; }
+    .badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(200,146,58,0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    .twain-says {
+      background: #170e03;
+      border: 1px solid rgba(200,146,58,0.15);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .twain-says .big { font-family: var(--font-d); font-size: clamp(1.1rem, 3vw, 1.6rem); color: var(--text); margin-bottom: 0.5rem; line-height: 1.4; }
+    .twain-says .sub { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.05em; }
+  </style>
+</head>
+<body>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 0: COVER                                                 -->
+<!-- ============================================================ -->
+<div class="page active" id="page-0">
+  <div class="cover-wrap">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Huck_and_jim_on_raft.jpg/960px-Huck_and_jim_on_raft.jpg" alt="Huck and Jim on the raft — E.W. Kemble, 1884" />
+    <div class="cover-over">
+      <div class="c-eye">Yoshida School &nbsp;·&nbsp; Unit One</div>
+      <h1 class="c-title">Arrivals</h1>
+      <p class="c-sub">Adventures of Huckleberry Finn &nbsp;·&nbsp; The Secret History</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 1: WHAT TWAIN WAS WRITING INTO                          -->
+<!-- ============================================================ -->
+<div class="page" id="page-1">
+<div class="page-inner">
+
+  <span class="label">Historical Context</span>
+  <h2>What Twain Was Writing Into</h2>
+
+  <p>Huck Finn is set in the 1840s. It was published in 1884. The forty-year gap between those two moments is the whole point. Twain was not writing a nostalgic adventure story. He was writing into a specific political crisis — one that was visible on every front page and in every courthouse.</p>
+
+  <!-- JIM CROW ORIGIN -->
+  <h3 class="mt2">Where the Name Comes From</h3>
+
+  <div class="g2">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Jim_Crow_LCCN2004669584.jpg/960px-Jim_Crow_LCCN2004669584.jpg" alt="Jim Crow minstrel print, etching, between 1835 and 1845" />
+      <figcaption><em>Jim Crow</em>, etching, 1835–1845. The minstrel caricature that gave racial segregation its name. Library of Congress.</figcaption>
+    </figure>
+    <div>
+      <p>The name "Jim Crow" did not come from law or politics. It came from a stage act.</p>
+      <p>In the early 1830s, a white performer named Thomas Dartmouth "Daddy" Rice created a character called "Jump Jim Crow" — an exaggerated minstrel caricature of a Black man, performed in blackface. The character swept America. Minstrelsy became one of the defining entertainment forms of the 19th century.</p>
+      <p>The segregation laws that spread across the South from the 1870s onward took their name from this theatrical act of dehumanization. The legal system of racial oppression was named after a caricature designed to make white audiences laugh.</p>
+      <p>Twain knew this. He was writing his novel as the legal apparatus bearing that name was being built, brick by brick.</p>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <h3 class="mt2">The Years Around Huck Finn</h3>
+  <div class="tl">
+    <div class="tl-item">
+      <span class="tl-year">~1840s — The novel's setting</span>
+      <p class="tl-text">Missouri before the Civil War. Slavery is legal. Jim is property under the law. The Territory west of the Mississippi is being "opened" through the forced removal of Indigenous nations.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1865 — Civil War ends</span>
+      <p class="tl-text">The Thirteenth Amendment abolishes slavery. Reconstruction begins — federal enforcement of civil rights in the South; Black men serve in Congress and state legislatures.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1877 — Reconstruction ends</span>
+      <p class="tl-text">The Hayes-Tilden Compromise. Federal troops withdraw. The white political order reasserts control. Those who celebrated this called it "Redemption."</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1883 — One year before Huck Finn</span>
+      <p class="tl-text">The Supreme Court guts the Civil Rights Act of 1875 (8–1). Congress can no longer protect Black citizens from private discrimination. The door to Jim Crow opens. Justice Harlan, the lone dissenter, writes his opinion using the same inkwell Chief Justice Taney used to write the Dred Scott decision — his wife placed it on his desk to sharpen his fury.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1884/85 — Huck Finn published</span>
+      <p class="tl-text">The novel arrives into this moment. Jim Crow laws are spreading. Lynching is epidemic. Reconstruction is abandoned. Twain sets his story forty years earlier — but he and his readers are living here, in this, now.</p>
+    </div>
+    <div class="tl-item">
+      <span class="tl-year">1901 — Twain writes "The United States of Lyncherdom"</span>
+      <p class="tl-text">A furious essay about the epidemic of lynching in Missouri. He catalogues the numbers, names Moral Cowardice as the cause, and implicates every silent American writer. He does not publish it in his lifetime.</p>
+    </div>
+  </div>
+
+  <!-- TWAIN'S OWN WORDS -->
+  <div class="bq mt2">
+    <blockquote>"In my schoolboy days I had no aversion to slavery. I was not aware that there was anything wrong about it. No one arraigned it in my hearing; the local papers said nothing against it; the local pulpit taught us that God approved of it, most of the few books we had dealt with it, and it was just the natural thing."</blockquote>
+    <cite>— Mark Twain, Autobiography (written c. 1906–07, published posthumously)</cite>
+  </div>
+  <p><em>Huck Finn is that child.</em> The novel is the story of those teachings coming apart.</p>
+  <p>Late in his life, Twain paid the law school tuition of a Black student named Warner McGuinn at Yale, framing it as personal reparation. McGuinn became a civil rights attorney in Baltimore and was one of the teachers of Thurgood Marshall, who later argued <em>Brown v. Board of Education</em>.</p>
+
+  <hr />
+
+  <!-- LYNCHING IMAGES AND STORIES -->
+  <div class="twain-says">
+    <div class="big">This is what Mark Twain was imbibing.</div>
+    <div class="sub">The images below were taken within a decade on either side of Huck Finn's publication.</div>
+  </div>
+
+  <div class="g2">
+    <figure>
+      <img src="https://i.guim.co.uk/img/media/19cb8a84dc8716884bd8bcd438f95ff18b5cff68/0_391_2953_2605/master/2953.jpg?width=1900&dpr=2&s=none&crop=none" alt="Lynching of a Black man, 1882 — two years before Huck Finn published" />
+      <figcaption>A lynching, 1882 — <strong>two years before Huck Finn was published</strong>. This is the political world Twain was writing inside of.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://eji.org/wp-content/uploads/2019/10/marion-indiana-lynching-1024x536.jpg" alt="Thomas Shipp and Abram Smith, Marion Indiana lynching, August 7 1930 — white crowd gathered around hanging bodies" />
+      <figcaption>Marion, Indiana, August 7, 1930. Thomas Shipp and Abram Smith, both 19. The crowd's demeanor. Compare to Ellison's "A Party Down by the Square."</figcaption>
+    </figure>
+  </div>
+
+  <div class="story">
+    <span class="story-tag">Marion, Indiana — August 7, 1930</span>
+    <h4>Thomas Shipp, Abram Smith, and James Cameron</h4>
+    <p>A large white mob used tear gas, crowbars, and hammers to break into the Grant County jail to lynch three young Black men accused of murdering a white man and assaulting a white woman. Thomas Shipp and Abram Smith, both 19, were severely beaten and lynched. James Cameron, 16, was badly beaten but survived.</p>
+    <p>The bodies of Mr. Shipp and Mr. Smith were hung from trees in the courthouse yard for hours as a crowd of thousands of white men, women, and children grew. When the sheriff cut the ropes, the crowd rushed forward to take parts of the men's bodies as souvenirs. Two mob leaders were tried; both were acquitted by all-white juries.</p>
+    <p>The alleged assault victim, Mary Ball, testified years later that she had not been raped.</p>
+  </div>
+
+  <div class="g2">
+    <figure>
+      <img src="https://eji.org/wp-content/uploads/2019/10/godley-godley-hampton.jpg" alt="Newspaper article about Springfield Missouri lynching, 1906" />
+      <figcaption>Press coverage of the Springfield, Missouri lynching, 1906. Note the tone.</figcaption>
+    </figure>
+    <div class="story" style="margin:0;">
+      <span class="story-tag">Springfield, Missouri — April 14–15, 1906</span>
+      <h4>Horace Duncan, Fred Coker, and Will Allen</h4>
+      <p>Two innocent men, Horace Duncan and Fred Coker, were accused of sexual assault. Both had alibis confirmed by their employers. A mob used sledgehammers and telephone poles to breach the jail. Just before midnight they hanged Mr. Duncan and Mr. Coker from a light tower in the town square and burned and shot their corpses while 5,000 people participated.</p>
+      <p>Continuing into the early morning, the mob chased Will Allen, accused of murder without evidence, and hanged him from the same tower. Police and county officials did not act to prevent any of it. Newspapers later confirmed both men were innocent of the rape allegation.</p>
+      <p>This was Twain's home state. He was alive when this happened.</p>
+    </div>
+  </div>
+
+  <!-- HANNIBAL -->
+  <hr />
+  <h3>Hannibal, Missouri — Where Twain Grew Up</h3>
+  <p>The town on the Mississippi where Samuel Clemens grew up. The model for St. Petersburg in the novel. Built on limestone bedrock — a secretly hollow landscape full of cave systems. This is Huck's world.</p>
+  <div class="g2">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Hannibal%2C_Missouri.jpg" alt="Hannibal, Missouri — 1865 engraving" />
+      <figcaption>Hannibal, Missouri, 1865 engraving — just after the Civil War. On the Mississippi River.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Hannibal%2C_Missouri_%28NYPL_Hades-119459-54090%29.tif/lossy-page1-1920px-Hannibal%2C_Missouri_%28NYPL_Hades-119459-54090%29.tif.jpg" alt="Hannibal, Missouri — NYPL historical photograph" />
+      <figcaption>Hannibal, Missouri, historical photograph. NYPL collection. The town's limestone bluffs over the river.</figcaption>
+    </figure>
+  </div>
+
+</div><!-- /page-inner -->
+</div><!-- /page-1 -->
+
+
+<!-- ============================================================ -->
+<!-- PAGE 2: HUCK'S VOICE                                          -->
+<!-- ============================================================ -->
+<div class="page" id="page-2">
+<div class="page-inner">
+
+  <span class="label">Dialect and Voice</span>
+  <h2>Huck's Voice</h2>
+
+  <div class="bq">
+    <blockquote>"The shadings have not been done in a haphazard fashion, or by guesswork; but painstakingly, and with the trustworthy guidance and support of personal familiarity with these several forms of speech."</blockquote>
+    <cite>— Mark Twain, "Explanatory" note to Huckleberry Finn (1884)</cite>
+  </div>
+
+  <p>He listed seven distinct dialects in that note. He wrote to his editor: <em>"I amend dialect stuff by talking and talking and talking it till it sounds right."</em> A handwritten note found in his papers reads simply: <strong style="color:var(--gold)">"Huck says nuther."</strong></p>
+
+  <p>He was tracking individual word choices by character. The way a character speaks is who they are. Huck speaks the "ordinary Pike County dialect" — named after Pike County, Missouri, on the Mississippi. It descends from Scots-Irish settlers who came through the Appalachian Mountains. Some features echo Elizabethan English. The closest living version today is Ozark English, preserved in the mountains of southwest Missouri and northwest Arkansas.</p>
+
+  <h3 class="mt2">Reading the Opening Lines: A Guide</h3>
+  <p class="muted" style="font-style:italic;font-size:0.82rem;max-width:none;margin-bottom:1rem;">Left: what you're reading. Middle: what it sounds like. Right: the meaning and grammar.</p>
+
+  <table class="pron-tbl">
+    <thead>
+      <tr>
+        <th>Twain's text</th>
+        <th>Sounds like / Say it as</th>
+        <th>What's happening</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="pron-orig">without you have read</td>
+        <td class="pron-ph">say it straight — no change in sound</td>
+        <td>"Without" here means <em>unless</em>. Dialectal grammar, not a mispronunciation. Say it direct, slightly defiant.</td>
+      </tr>
+      <tr>
+        <td class="pron-orig">ain't no matter</td>
+        <td class="pron-ph">AYN't — rhymes with "paint," flat</td>
+        <td>The double negative ("ain't no") is a grammatical pattern, not an error. Don't perform the "ain't" — say it the way you'd say "it doesn't matter."</td>
+      </tr>
+      <tr>
+        <td class="pron-orig">he told the truth, mainly</td>
+        <td class="pron-ph">MAYN-lee — pause before it</td>
+        <td>"Mainly" qualifies the truth-claim in the same breath as making it. That pause before the word is carrying irony. Let it land.</td>
+      </tr>
+      <tr>
+        <td class="pron-orig">which he stretched</td>
+        <td class="pron-ph">stretchT — like "sketch" + abrupt T</td>
+        <td>Final -ed often contracts to a bare T-stop in this dialect. "Stretched" → "stretchT." Natural, not performed.</td>
+      </tr>
+      <tr>
+        <td class="pron-orig">I never seen</td>
+        <td class="pron-ph">same as standard pronunciation</td>
+        <td>"Never seen" instead of "never saw" — consistent Pike County grammar. Part of a pattern, not a slip.</td>
+      </tr>
+      <tr>
+        <td class="pron-orig">The rhythm overall</td>
+        <td class="pron-ph">unhurried · conversational</td>
+        <td>More important than any individual sound. Huck is talking <em>to you</em>, not performing for you. Find the pace of someone who has all the time in the world and something to say. The sounds will follow the rhythm.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt2">Ozark / Pike County Sounds — A Cheat Sheet</h3>
+  <p>These are systematic features of the dialect family Huck speaks. Notice the vowel patterns especially — the long I sound flattens, words collapse to fewer syllables.</p>
+
+  <div class="ozark-grid">
+    <div class="oz-item">
+      <span class="oz-word">fire</span>
+      <span class="oz-sound">FAR</span>
+      <span class="oz-note">one syllable — the "ire" collapses</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">right</span>
+      <span class="oz-sound">RAHT or RAT</span>
+      <span class="oz-note">long I flattens to "ah" before T</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">time</span>
+      <span class="oz-sound">TAHM</span>
+      <span class="oz-note">same vowel shift before M</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">find</span>
+      <span class="oz-sound">FAHND</span>
+      <span class="oz-note">same pattern before N</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">creek</span>
+      <span class="oz-sound">CRICK</span>
+      <span class="oz-note">short I, no long EE</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">get</span>
+      <span class="oz-sound">GIT</span>
+      <span class="oz-note">short I replaces short E</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">just</span>
+      <span class="oz-sound">JIST</span>
+      <span class="oz-note">same I-for-E pattern</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">again</span>
+      <span class="oz-sound">uh-GIN</span>
+      <span class="oz-note">rhymes with "sin"</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">there</span>
+      <span class="oz-sound">THAR</span>
+      <span class="oz-note">the "ear" sound → AR</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">window</span>
+      <span class="oz-sound">WINDER</span>
+      <span class="oz-note">final vowel → ER</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">yellow</span>
+      <span class="oz-sound">YELLER</span>
+      <span class="oz-note">same ER ending</span>
+    </div>
+    <div class="oz-item">
+      <span class="oz-word">wash</span>
+      <span class="oz-sound">WARSH</span>
+      <span class="oz-note">intrusive R — one of the oddest features</span>
+    </div>
+  </div>
+
+  <div class="callout mt1">
+    <p><strong>The Elizabethan thread:</strong> The a-prefixing you see in Huck Finn — <em>"a-going," "a-comin'"</em> — is a feature that appears in early modern English too. When we read Shakespeare in Original Pronunciation later this year, some of this will sound familiar. The thread between Pike County 1840 and London 1600 runs deeper than it looks.</p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 3: TWO KINDS OF R                                        -->
+<!-- ============================================================ -->
+<div class="page" id="page-3">
+<div class="page-inner">
+
+  <span class="label">A Key Concept in Linguistics</span>
+  <h2>Two Kinds of R</h2>
+
+  <p>Dialects aren't random collections of quirks. They have systems — internal rules that produce consistent effects. One of the clearest: the distinction between <strong>rhotic</strong> and <strong>non-rhotic</strong> speech.</p>
+  <p>One question determines it: <em>what happens to the letter R when it comes after a vowel?</em></p>
+
+  <table class="dtbl">
+    <thead>
+      <tr><th>Type</th><th>Rule</th><th>"butter"</th><th>"car"</th><th>"bird"</th><th>Where you hear it</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong class="rh">Rhotic</strong></td>
+        <td style="font-size:0.82rem;font-weight:300;">R pronounced after vowels</td>
+        <td class="we rh">BUTT-err</td>
+        <td class="we rh">CARR</td>
+        <td class="we rh">BRRRD</td>
+        <td style="font-size:0.8rem;color:var(--text-muted);font-weight:300;">Missouri, Ozarks, most American English, Canada</td>
+      </tr>
+      <tr>
+        <td><strong class="nr">Non-Rhotic</strong></td>
+        <td style="font-size:0.82rem;font-weight:300;">R softens or disappears</td>
+        <td class="we nr">BUTT-uh</td>
+        <td class="we nr">CAH</td>
+        <td class="we nr">BUHD</td>
+        <td style="font-size:0.8rem;color:var(--text-muted);font-weight:300;">Louisiana, New Orleans, Boston, New York (trad.), British, Australian</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>The New Orleans surprise:</strong> The "Yat" accent sounds more like Brooklyn than the Deep South. Both cities are non-rhotic port cities with similar settlement histories. The R-drop connects them — not geography. Once you hear this, you can't unhear it.</p>
+  </div>
+
+  <h3 class="mt2">Why This Matters for Huck Finn Specifically</h3>
+
+  <p>Huck speaks a <span class="rh">rhotic</span> dialect — Pike County, Missouri. He pronounces his R's.</p>
+  <p>Jim's dialect — what Twain called the Missouri Negro dialect, which belongs to the family now called African American Vernacular English — tends toward <span class="nr">non-rhotic</span> features. Jim's R's soften in ways Huck's don't.</p>
+  <p>So Huck and Jim are traveling together down the Mississippi River, and their mouths are doing different things with the same letter. And as they travel south — toward Louisiana, toward New Orleans — the whole world around them becomes less rhotic.</p>
+
+  <div style="background:var(--bg-card);border-left:3px solid var(--gold);padding:1.25rem 1.5rem;margin:1.5rem 0;">
+    <p class="w" style="font-family:var(--font-d);font-size:1.1rem;font-style:italic;margin-bottom:0;">It's audible geography. The river trip is a phonological journey.</p>
+  </div>
+
+  <div class="callout">
+    <p><strong>A thread to hold all year:</strong> British English is non-rhotic. Einstein's German-inflected English is non-rhotic. When we work with Dylan Thomas, Einstein recordings, and Original Pronunciation Shakespeare — the R will keep reappearing. You're planting this concept now.</p>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 4: WATCH: ERIK SINGER                                    -->
+<!-- ============================================================ -->
+<div class="page" id="page-4">
+<div class="page-inner">
+
+  <span class="label">Watch Together</span>
+  <h2>Erik Singer: A Tour of American Accents</h2>
+  <p>Erik Singer is a dialect coach for film and television. Both videos run about 12–15 minutes in full. We're focusing on specific sections, but the whole thing is worth watching.</p>
+
+  <div class="vblock">
+    <div class="vhdr">
+      <h3>Part 2 — The South and Midwest</h3>
+      <a class="vfl" href="https://www.youtube.com/watch?v=IsE_8j5RL3k" target="_blank">Full video ↗</a>
+    </div>
+    <div class="vcards">
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=9" target="_blank">
+        <span class="vt">00:09 — Start Here</span>
+        <span class="vn">Southern Louisiana</span>
+        <span class="vd">Singer introduces rhotic vs. non-rhotic. Begin here.</span>
+      </a>
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=164" target="_blank">
+        <span class="vt">02:44</span>
+        <span class="vn">New Orleans "Yat"</span>
+        <span class="vd">Sounds like Brooklyn. The non-rhotic thread, not geography.</span>
+      </a>
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=206" target="_blank">
+        <span class="vt">03:26</span>
+        <span class="vn">Cajun English</span>
+        <span class="vd">French-influenced. A completely different system from Yat, same state.</span>
+      </a>
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=240" target="_blank">
+        <span class="vt">04:00</span>
+        <span class="vn">Texas</span>
+        <span class="vd">Rhotic. Very different from Louisiana right next door.</span>
+      </a>
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=335" target="_blank">
+        <span class="vt">05:35</span>
+        <span class="vn">Oklahoma</span>
+        <span class="vd">Oklahoma was Indian Territory until 1907 — the land Huck imagines escaping to. Choctaw, Cherokee, Chickasaw, Creek, Seminole.</span>
+      </a>
+      <a class="vc key" href="https://youtu.be/IsE_8j5RL3k?t=394" target="_blank">
+        <span class="vt">06:38 — Key Stop</span>
+        <span class="vn">The Ozarks</span>
+        <span class="vd">Closest living relative to Huck's Pike County dialect. Some echoes of Elizabethan English.</span>
+      </a>
+      <a class="vc" href="https://youtu.be/IsE_8j5RL3k?t=567" target="_blank">
+        <span class="vt">09:27</span>
+        <span class="vn">St. Louis &amp; Memphis</span>
+        <span class="vd">St. Louis is on the Mississippi. Henry Winter is from St. Louis. He and Huck Finn are from the same geographic world.</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="vblock">
+    <div class="vhdr">
+      <h3>Part 1 — New England, The East, African American English</h3>
+      <a class="vfl" href="https://www.youtube.com/watch?v=H1KP4ztKK0A" target="_blank">Full video ↗</a>
+    </div>
+    <div class="vcards">
+      <a class="vc" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">
+        <span class="vt">02:45</span>
+        <span class="vn">Boston</span>
+        <span class="vd">Non-rhotic New England — the dominant register of Hampden. The accent Richard Papen pretends to have.</span>
+      </a>
+      <a class="vc" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=271" target="_blank">
+        <span class="vt">04:31</span>
+        <span class="vn">African American English</span>
+        <span class="vd">A rich systematic dialect with deep history. Often non-rhotic. Jim's dialect in Huck Finn belongs to this family.</span>
+      </a>
+      <a class="vc" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=655" target="_blank">
+        <span class="vt">10:55</span>
+        <span class="vn">Virginia</span>
+        <span class="vd">Old Southern. Charles and Camilla Macaulay are from Virginia — softer Southern, not Deep South.</span>
+      </a>
+      <a class="vc" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=720" target="_blank">
+        <span class="vt">12:00</span>
+        <span class="vn">Appalachia</span>
+        <span class="vd">The source dialect for the Ozarks and Pike County. This is where Huck's voice originates, generations back.</span>
+      </a>
+      <a class="vc key" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=962" target="_blank">
+        <span class="vt">16:02 — Key Stop</span>
+        <span class="vn">"General American"</span>
+        <span class="vd">The flat, placeless accent of the American interior — California, much of the Midwest. Richard Papen's real voice. The one he arrived at Hampden trying to hide.</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 5: HAMPDEN'S VOICES                                      -->
+<!-- ============================================================ -->
+<div class="page" id="page-5">
+<div class="page-inner">
+
+  <span class="label">The Secret History</span>
+  <h2>The Voices in the Room at Hampden</h2>
+  <p>Donna Tartt's novel is set at a small Vermont college. The characters come from all over — and several of them are performing accents that aren't their own. The novel is about identity performance, and it begins in how people talk.</p>
+
+  <div class="g3">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Camel%27s_Hump_and_Winooski_River%2C_Green_Mountains%2C_Vermont_%282381062779%29.jpg/960px-Camel%27s_Hump_and_Winooski_River%2C_Green_Mountains%2C_Vermont_%282381062779%29.jpg" alt="Camel's Hump and Winooski River, Vermont, postcard c.1930-45" />
+      <figcaption>Camel's Hump and Winooski River, Vermont, c. 1930–45. The Green Mountains — metamorphic schist, ancient, the valleys narrow. The rivers cut downward.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Ames_Hall_Green_Mountain_College_1_Brennan_Circle_Poultney_VT_November_2013.jpg/960px-Ames_Hall_Green_Mountain_College_1_Brennan_Circle_Poultney_VT_November_2013.jpg" alt="Ames Hall, Green Mountain College, Poultney VT" />
+      <figcaption>Ames Hall, Green Mountain College, Poultney, Vermont — a small liberal arts college in the Green Mountains. Close enough to Hampden. "Dominated by the grand, Federal style."</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Muscovite_schist_%28Appalachian_Gap%2C_Green_Mountains%2C_Vermont%2C_USA%29_7.jpg/960px-Muscovite_schist_%28Appalachian_Gap%2C_Green_Mountains%2C_Vermont%2C_USA%29_7.jpg" alt="Muscovite schist, Appalachian Gap, Green Mountains, Vermont" />
+      <figcaption>Muscovite schist, Appalachian Gap. This is what the Green Mountains are made of — metamorphic rock, crystalline, ancient. Hard and secretive. Compare to the soft limestone of the Mississippi.</figcaption>
+    </figure>
+  </div>
+
+  <div class="cgrid">
+    <div class="ccard">
+      <div class="cname">The Setting</div>
+      <div class="corig">Hampden, Vermont</div>
+      <div class="cvoice">The room sounds like Boston — non-rhotic, educated, New England clipped. Julian Morrow's classroom runs on a particular register: classical, precise, with slightly British assumptions about intelligence.</div>
+      <div class="clinks">
+        <a class="clink" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">→ Singer: Boston (02:45)</a>
+      </div>
+    </div>
+    <div class="ccard key">
+      <div class="cname">Richard Papen</div>
+      <div class="corig">Plano, California → performing Boston</div>
+      <div class="cvoice">Richard's real accent is "General American" — flat, placeless, California interior. He arrives at Hampden performing a different identity. He is <em>linguistically passing</em>. The novel is about identity performance and it starts in his mouth.</div>
+      <div class="clinks">
+        <a class="clink" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=962" target="_blank">→ Singer: General American (16:02)</a>
+      </div>
+    </div>
+    <div class="ccard">
+      <div class="cname">Henry Winter</div>
+      <div class="corig">St. Louis, Missouri</div>
+      <div class="cvoice">St. Louis is on the Mississippi River. Henry is from the same geographic world as Huck Finn. He is what happens to that world's money and intellect when it arrives at a Vermont college and reads Greek.</div>
+      <div class="clinks">
+        <a class="clink" href="https://youtu.be/IsE_8j5RL3k?t=567" target="_blank">→ Singer: St. Louis (09:27)</a>
+      </div>
+    </div>
+    <div class="ccard">
+      <div class="cname">Charles &amp; Camilla Macaulay</div>
+      <div class="corig">Virginia (old family)</div>
+      <div class="cvoice">Old Southern, not Deep South. The Virginia accent is distinct — softer, more preserved, with characteristic vowel patterns. Rhotic, but different from Missouri. Old money, old land.</div>
+      <div class="clinks">
+        <a class="clink" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=655" target="_blank">→ Singer: Virginia (10:55)</a>
+      </div>
+    </div>
+    <div class="ccard">
+      <div class="cname">Francis Abernathy</div>
+      <div class="corig">New England (wealthy, old money)</div>
+      <div class="cvoice">Closest to the setting's register. Non-rhotic, educated, Boston-adjacent. Francis sounds like someone who has always belonged in rooms like this. He doesn't have to perform.</div>
+      <div class="clinks">
+        <a class="clink" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">→ Singer: Boston (02:45)</a>
+      </div>
+    </div>
+    <div class="ccard">
+      <div class="cname">Bunny Corcoran</div>
+      <div class="corig">Connecticut</div>
+      <div class="cvoice">New England, but louder and less refined than Francis. Connecticut sits between Boston and New York. Bunny performs belonging more visibly. He is also, in a different way, pretending to be something he isn't.</div>
+      <div class="clinks">
+        <a class="clink" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">→ Singer: Boston / New England (02:45)</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 6: SOUNDS LIKE...                                        -->
+<!-- ============================================================ -->
+<div class="page" id="page-6">
+<div class="page-inner">
+
+  <span class="label">What Each Voice Actually Sounds Like</span>
+  <h2>Sounds Like...</h2>
+  <p>Here are real voices from film, TV, and historical recordings that match each character's accent. Watch a clip. Listen for the features Singer described.</p>
+
+  <!-- HUCK -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Huck Finn</div>
+      <div class="sc-orig">Pike County, Missouri — Ozarks dialect family</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtu.be/IsE_8j5RL3k?t=394" target="_blank">→ Singer: Ozarks (06:38)</a></div>
+      <span class="sc-tag">Listen to a real Ozark speaker</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.tiktok.com/@narratormatt/video/7563408916953058615" target="_blank">→ TikTok: Ozark English breakdown</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>Listen for:</strong> The long I flattening ("time" → "tahm", "right" → "raht"). "Creek" becomes "crick." Final -ing drops to -in'. The pace is unhurried — almost deliberate. There's a dignity to it, not a joke. Twain wrote this voice with care.</p>
+    </div>
+  </div>
+
+  <!-- RICHARD (General American) -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Richard Papen</div>
+      <div class="sc-orig">Plano, California — "General American"</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=962" target="_blank">→ Singer: General American (16:02)</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>The tricky one:</strong> "General American" is defined by what it <em>lacks</em>. No strong regional features. No R-drop, no vowel shift, no drawl. It's the accent of most Hollywood films and most network news anchors. It sounds like "nowhere in particular" — which is the point. Richard comes from nowhere in particular. He wants to sound like somewhere.</p>
+    </div>
+  </div>
+
+  <!-- HENRY (St. Louis) -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Henry Winter</div>
+      <div class="sc-orig">St. Louis, Missouri — Midland American</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtu.be/IsE_8j5RL3k?t=567" target="_blank">→ Singer: St. Louis (09:27)</a></div>
+      <span class="sc-tag">Film example</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtu.be/yXTJhVBqWOM?t=66" target="_blank">→ Jon Hamm as Don Draper (Mad Men)</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>Jon Hamm is literally from St. Louis.</strong> Don Draper is a man performing a different identity over his real self — Dick Whitman pretending to be Don Draper. Henry Winter is also performing an identity. The parallel is not an accident. Listen for the Midland flatness: rhotic but without strong regional features. Controlled. Authoritative without announcing itself.</p>
+    </div>
+  </div>
+
+  <!-- CHARLES & CAMILLA (Virginia) -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Charles &amp; Camilla Macaulay</div>
+      <div class="sc-orig">Virginia — Tidewater / Old Southern</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=655" target="_blank">→ Singer: Virginia (10:55)</a></div>
+      <span class="sc-tag">Film example</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtu.be/Adq6gTzGvS0?t=3" target="_blank">→ Kevin Spacey, House of Cards (Virginia / South Carolina)</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>Listen for:</strong> The Tidewater Virginia accent is old Southern with an aristocratic English quality — not the Deep South drawl, not the twang. It has an almost archaic formality. TV Tropes describes it as "ambiguously Southern politicians who own horse farms in Virginia." That's the Macaulay register. Spacey's Frank Underwood is South Carolina, which is adjacent.</p>
+    </div>
+  </div>
+
+  <!-- FRANCIS (New England old money) -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Francis Abernathy</div>
+      <div class="sc-orig">New England — old money, non-rhotic</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">→ Singer: Boston (02:45)</a></div>
+      <span class="sc-tag">Historical example — the pure form</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.youtube.com/watch?v=nA0MmeOW2_0" target="_blank">→ Katharine Hepburn (Hartford, Connecticut)</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>Katharine Hepburn</strong> was born in Hartford, Connecticut — Francis Abernathy country. Her accent is often called "Mid-Atlantic" or "Transatlantic" — a cultivated non-rhotic New England register. Not working-class Boston. <em>Old money</em> Boston. The accent of someone who has never had to announce their belonging. Francis sounds like this. He doesn't have to perform.</p>
+    </div>
+  </div>
+
+  <!-- BUNNY (Connecticut) -->
+  <div class="sc">
+    <div class="sc-left">
+      <div class="sc-name">Bunny Corcoran</div>
+      <div class="sc-orig">Connecticut — New England, less refined</div>
+      <span class="sc-tag">Singer reference</span>
+      <div class="sc-links"><a class="sc-link" href="https://www.youtube.com/watch?v=H1KP4ztKK0A&t=165" target="_blank">→ Singer: New England (02:45)</a></div>
+      <span class="sc-tag">Wealthy New England JFK-style</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtu.be/NtLTmg2vCzY?t=21" target="_blank">→ JFK speech (Boston Brahmin)</a></div>
+      <span class="sc-tag">Connecticut old money TV</span>
+      <div class="sc-links"><a class="sc-link" href="https://youtube.com/shorts/LpIpt-fbL_8" target="_blank">→ Emily Gilmore — Gilmore Girls (Connecticut)</a></div>
+    </div>
+    <div class="sc-right">
+      <p class="sc-listen"><strong>Bunny is louder and less controlled than Francis.</strong> Connecticut sits between Boston and New York, and the accent shows it — non-rhotic but with more energy, more performance. Bunny's performing belonging more visibly. He's also pretending. Emily Gilmore from The Gilmore Girls is set in Stars Hollow, Connecticut — her register is exactly this: wealthy New England performing its own wealth.</p>
+      <p class="sc-listen mt1" style="margin-top:0.75rem;"><strong>Working-class Boston (for contrast):</strong> <a href="https://youtu.be/RKu_QQVHJLA?t=47" target="_blank" style="color:var(--gold);border-bottom:1px solid var(--gold-dim);">Good Will Hunting</a> — Ben Affleck. The same non-rhotic family, completely different register. Compare them.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 7: PERFORMING IDENTITIES                                 -->
+<!-- ============================================================ -->
+<div class="page" id="page-7">
+<div class="page-inner">
+
+  <span class="label">The Thread Running Through Both Novels</span>
+  <h2>Performing Identities</h2>
+
+  <p>Richard Papen arrives at Hampden from Plano, California. He tells people he is from Boston. He is performing a non-rhotic New England identity over a rhotic General American one — putting on vowels and dropping R's he was never born with.</p>
+  <p class="w">Every person in Julian's classroom is performing a version of belonging. The question the novel asks — and never fully answers — is whether any of them are really there at all.</p>
+
+  <div class="callout mt2">
+    <p class="w"><strong>Compare:</strong> We're going to find that Huck performs identities throughout the novel. Let's think about that each time he plays a part. When you're reading, notice it. If you're down, underline it! I underline my books all the time. Mom's not an underliner. You do you — I'll smooth it out if it ever needs smoothing out 🙂</p>
+  </div>
+
+  <hr />
+
+  <div class="g2 mt2">
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/George_Caleb_Bingham_001FXD.jpg/960px-George_Caleb_Bingham_001FXD.jpg" alt="George Caleb Bingham, Fur Traders Descending the Missouri, 1845" />
+      <figcaption>George Caleb Bingham, <em>Fur Traders Descending the Missouri</em> (1845). Two figures on still brown water. Painted the same decade Huck Finn is set. Metropolitan Museum of Art, open access.</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/George_Caleb_Bingham%2C_The_Jolly_Flatboatmen%2C_1846%2C_NGA_75206.jpg/960px-George_Caleb_Bingham%2C_The_Jolly_Flatboatmen%2C_1846%2C_NGA_75206.jpg" alt="George Caleb Bingham, The Jolly Flatboatmen, 1846" />
+      <figcaption>George Caleb Bingham, <em>The Jolly Flatboatmen</em> (1846). Same river, one year later. One painting is quiet and mysterious; the other is exuberant. Both are on the same water Huck and Jim travel.</figcaption>
+    </figure>
+  </div>
+
+  <figure class="mt1">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Huck_and_jim_on_raft.jpg/960px-Huck_and_jim_on_raft.jpg" alt="Huck and Jim on the raft — E.W. Kemble illustration, first edition 1884" />
+    <figcaption>E.W. Kemble, <em>Huck and Jim on the Raft</em>, first edition illustration (1884–85). The river as a world between worlds — neither the shore they left nor the shore they're heading toward.</figcaption>
+  </figure>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 8: AMERICAN DIALECTS MAP                                 -->
+<!-- ============================================================ -->
+<div class="page" id="page-8">
+<div class="page-inner">
+
+  <span class="label">Dialect Geography</span>
+  <h2>American Dialect Regions</h2>
+  <p class="map-instruction">Map by Robert Delaney, 2000. The regions below are labeled on this map. Can you find each one?</p>
+
+  <div class="map-wrap">
+    <div>
+      <img src="https://robertspage.com/diausa.gif" alt="American English dialect regions map" />
+    </div>
+    <div>
+      <h4>Find These on the Map</h4>
+      <p class="map-instruction">They're shuffled. Some you'll find easily, some will take a moment.</p>
+      <ul class="find-list" id="american-list"></ul>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 9: INDIGENOUS LANGUAGES MAP                             -->
+<!-- ============================================================ -->
+<div class="page" id="page-9">
+<div class="page-inner">
+
+  <span class="label">Before English</span>
+  <h2>Indigenous Language Families</h2>
+  <p class="map-instruction">This map shows the Indigenous language families of North America before European contact. Hundreds of distinct languages — many as different from each other as English is from Japanese. The idea of a "standard" language on this continent is about four hundred years old. Can you find each family and language below on the map?</p>
+
+  <div class="map-wrap">
+    <div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Langs_N.Amer.png/960px-Langs_N.Amer.png" alt="Map of North American Indigenous language families" />
+    </div>
+    <div>
+      <h4>Find These on the Map</h4>
+      <p class="map-instruction">Language families, isolates, and individual languages — all shuffled.</p>
+      <ul class="find-list" id="indigenous-list"></ul>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 10: BOTH MAPS                                            -->
+<!-- ============================================================ -->
+<div class="page" id="page-10">
+<div class="page-inner">
+
+  <span class="label">Put It Together</span>
+  <h2>Both Maps, All Languages</h2>
+  <p class="map-instruction">Both maps side by side. Below: all the dialect names and language names from both maps, shuffled together. Two very different kinds of linguistic geography on the same continent. Can you find them?</p>
+
+  <div class="bmaps">
+    <figure>
+      <img src="https://robertspage.com/diausa.gif" alt="American dialect regions" />
+      <figcaption>American English dialect regions</figcaption>
+    </figure>
+    <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Langs_N.Amer.png/960px-Langs_N.Amer.png" alt="Indigenous language families" />
+      <figcaption>Indigenous language families of North America</figcaption>
+    </figure>
+  </div>
+
+  <ul class="find-list comb-list" id="combined-list"></ul>
+
+</div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- PAGE 11: LANGUAGE NOTES                                       -->
+<!-- ============================================================ -->
+<div class="page" id="page-11">
+
+  <div class="notes-bg" aria-hidden="true">
+    <img src="https://robertspage.com/diausa.gif" alt="" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Langs_N.Amer.png/960px-Langs_N.Amer.png" alt="" />
+  </div>
+
+  <div class="page-inner notes-fg">
+    <span class="label">Reference Notes</span>
+    <h2>About These Maps</h2>
+
+    <div class="notes-section">
+      <h3>The American Dialect Map</h3>
+      <p class="w">This map was created by Robert Delaney around 2000. It's a useful general picture, but modern sociolinguists would divide some regions differently. Language regions shift over decades — migration, media, and urbanization all affect where dialect boundaries fall.</p>
+      <p class="w"><strong>South Midland</strong> is often associated with what more recent studies call parts of the "Midland dialect." <strong>Gullah</strong> refers to the English-based creole language spoken traditionally by the Gullah Geechee people along the South Carolina and Georgia coast — a distinct language, not simply a dialect of English. <strong>Ocracoke</strong> is the highly distinctive Outer Banks dialect of North Carolina, spoken on a barrier island with limited outside contact for generations. <strong>Pennsylvania German-English</strong> reflects English heavily influenced by Pennsylvania Dutch/German settlement patterns in the 18th and 19th centuries.</p>
+    </div>
+
+    <div class="notes-section">
+      <h3>The Indigenous Languages Map</h3>
+      <p class="w">Some entries on this map are full language <em>families</em> (like Algic or Uto-Aztecan) — groups of related languages the way Germanic or Romance are groups within European languages. Others are <em>language isolates</em> — languages with no known relatives anywhere in the world, like Zuni or Washo. A few entries refer to peoples whose languages are extinct or so poorly documented that full classification is impossible.</p>
+      <p class="w">"Cayuse" appears twice in the map's numbering — likely a cartographic duplication. Some entries, like Haida, are themselves debated among linguists as to whether they constitute an isolate or a distant relative of other families.</p>
+    </div>
+
+    <div class="notes-section">
+      <h3>What These Two Maps Together Show</h3>
+      <p class="w">The American dialect map shows English — one language, four hundred years old on this continent, already fragmenting into dozens of mutually intelligible regional varieties. The Indigenous languages map shows what existed before: hundreds of language families, many as different from each other as English is from Mandarin, built up over thousands of years.</p>
+      <p class="w">The English dialects are layered on top of that earlier geography. Place names are often the only surviving evidence of it — Mississippi, Missouri, Chicago, Ozark, Appalachian, Susquehanna. The landscape still speaks those languages, even when the people who named it cannot.</p>
+    </div>
+
+    <div class="notes-section">
+      <h3>The Connection to Huck Finn</h3>
+      <p class="w">When Huck imagines "lighting out for the Territory," he is imagining land that appears on the Indigenous languages map as Choctaw, Cherokee, Chickasaw, Creek, and Seminole territory — the land those nations were removed to after the Trail of Tears, and which became Oklahoma in 1907. The "Territory" of American freedom mythology was not empty. It had languages, governments, and people. We'll return to this thread throughout the year.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- NAVIGATION BAR                                               -->
+<!-- ============================================================ -->
+<nav id="nav">
+  <div class="nav-side">
+    <button class="nbtn" id="prev-btn" disabled>&#8592;</button>
+  </div>
+  <span id="nav-title">Cover</span>
+  <div class="nav-side">
+    <span id="nav-count">1 / 12</span>
+    <button class="nbtn" id="next-btn">&#8594;</button>
+  </div>
+</nav>
+
+
+<script>
+  /* ===== DATA ===== */
+  const pageTitles = [
+    'Cover',
+    'What Twain Was Writing Into',
+    'Huck\'s Voice',
+    'Two Kinds of R',
+    'Watch: Erik Singer',
+    'Hampden\'s Voices',
+    'Sounds Like...',
+    'Performing Identities',
+    'American Dialects',
+    'Indigenous Languages',
+    'Both Maps',
+    'Language Notes'
+  ];
+
+  const americanDialects = [
+    'New England Eastern','New England Western','Inland Northern',
+    'North Midland','South Midland','Southern Appalachian',
+    'Coastal Southern','Gulf Southern','Upper Midwestern',
+    'Rocky Mountain','Pacific Northwest','Pacific Southwest',
+    'Southwestern','Boston Urban','New York City / Hudson Valley',
+    'Pennsylvania German-English','Chicago Urban','San Francisco Urban',
+    'Ozark','Smoky Mountain','Louisiana','Gullah','Ocracoke'
+  ];
+
+  const indigenousLangs = [
+    'Eskimo-Aleut','Na-Dene','Algic','Tsimshianic','Wakashan',
+    'Salishan','Chinookan','Plateau Penutian','Kalapuyan','Alsean',
+    'Coosan','Shastan','Palaihnihan','Wintuan','Yuki-Wappo',
+    'Pomoan','Maiduan','Utian','Chumashan','Uto-Aztecan',
+    'Yokutsan','Yuman-Cochimí','Keresan','Kiowa-Tanoan',
+    'Caddoan','Siouan-Catawban','Comecrudan','Muskogean','Iroquoian',
+    'Beothuk','Yuchi','Timucua','Calusa','Tunica','Natchez',
+    'Chitimacha','Adai','Atakapa','Karankawa','Tonkawa',
+    'Aranama','Coahuilteco','Solano','Zuni','Seri',
+    'Salinan','Esselen','Washo','Yana','Chimariko',
+    'Karuk','Cayuse','Takelma','Siuslaw','Kutenai','Haida'
+  ];
+
+  /* ===== SHUFFLE ===== */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function renderList(items, id) {
+    const ul = document.getElementById(id);
+    if (!ul) return;
+    shuffle(items).forEach(name => {
+      const li = document.createElement('li');
+      li.textContent = name;
+      ul.appendChild(li);
+    });
+  }
+
+  renderList(americanDialects, 'american-list');
+  renderList(indigenousLangs, 'indigenous-list');
+  renderList([...americanDialects, ...indigenousLangs], 'combined-list');
+
+  /* ===== PAGE NAVIGATION ===== */
+  const pages = document.querySelectorAll('.page');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const navTitle = document.getElementById('nav-title');
+  const navCount = document.getElementById('nav-count');
+  let current = 0;
+
+  function goTo(n) {
+    pages[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, pages.length - 1));
+    pages[current].classList.add('active');
+    pages[current].scrollTop = 0;
+    navTitle.textContent = pageTitles[current];
+    navCount.textContent = (current + 1) + ' / ' + pages.length;
+    prevBtn.disabled = (current === 0);
+    nextBtn.disabled = (current === pages.length - 1);
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+
+  /* ===== TOUCH SWIPE ===== */
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) { dx > 0 ? goTo(current + 1) : goTo(current - 1); }
+  }, { passive: true });
+
+  /* ===== BROKEN IMAGE PLACEHOLDERS ===== */
+  document.querySelectorAll('img').forEach(img => {
+    function ph() {
+      const d = document.createElement('div');
+      d.className = 'broken';
+      d.textContent = '[ ' + (img.alt || 'image') + ' ]';
+      if (img.parentNode) img.parentNode.replaceChild(d, img);
+    }
+    if (!img.getAttribute('src') || img.getAttribute('src') === '') {
+      ph();
+    } else {
+      img.addEventListener('error', ph);
+    }
+  });
+
+  goTo(0);
+</script>
+
+</body>
+</html>
